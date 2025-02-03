@@ -1,0 +1,402 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import { PlusCircle, Pencil } from 'react-bootstrap-icons';
+import { FaTrash } from 'react-icons/fa';
+import { FormControl, InputGroup } from 'react-bootstrap';
+import Swal from 'sweetalert2';
+import './reservation.css';
+
+const Reservations = () => {
+  const [reservations, setReservations] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [formData, setFormData] = useState({
+    Name: '',
+    phone_number: '',
+    Room_number: '',
+    Room_View: '',
+    Room_Type: '',
+    floor: '',
+    start_date: '',
+    end_date: '',
+    status: ''
+  });
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedReservation, setSelectedReservation] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  useEffect(() => {
+    fetchReservations();
+  }, []);
+
+  const fetchReservations = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/reservationss');
+      setReservations(response.data);
+    } catch (error) {
+      console.error('Error fetching reservations:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleAddSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:3001/api/reservationss', formData);
+      setFormData({
+        Name: '',
+        phone_number: '',
+        Room_number: '',
+        Room_View: '',
+        Room_Type: '',
+        floor: '',
+        start_date: '',
+        end_date: '',
+        status: ''
+      });
+      fetchReservations();
+      setShowAddModal(false);
+    } catch (error) {
+      console.error('Error adding reservation:', error.response ? error.response.data : 'Internal Server Error');
+    }
+  };
+
+  const deleteReservation = async (reservationId) => {
+    const isConfirm = await Swal.fire({
+      title: 'Are you sure?',
+      text: "This action cannot be undone.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (isConfirm.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:3001/api/reservationss/${reservationId}`);
+        fetchReservations();
+        Swal.fire('Deleted!', 'Your reservation has been deleted.', 'success');
+      } catch (error) {
+        console.error('Error deleting reservation:', error);
+        Swal.fire('Error!', 'There was a problem deleting the reservation.', 'error');
+      }
+    }
+  };
+
+  const handleEdit = (reservation) => {
+    setSelectedReservation(reservation);
+    setFormData(reservation);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setSelectedReservation(null);
+  };
+
+  const handleModalSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:3001/api/reservationss/${selectedReservation.reservation_id}`, formData);
+      fetchReservations();
+      setShowModal(false);
+      setSelectedReservation(null);
+      Swal.fire('Updated!', 'Your reservation has been updated.', 'success');
+    } catch (error) {
+      console.error('Error updating reservation:', error);
+      Swal.fire('Error!', 'There was a problem updating the reservation.', 'error');
+    }
+  };
+
+  const filteredReservations = reservations.filter(reservation => 
+    reservation.Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <h1 className="text-center">Reservation Details</h1>
+          <div className="search-bar">
+            <InputGroup className="search-group">
+              <FormControl 
+                type="search" 
+                placeholder="Search by Name" 
+                className="search-input" 
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+            </InputGroup>
+            <Button
+              onClick={() => setShowAddModal(true)}
+              className="add-btn"
+            >
+              <PlusCircle />
+            </Button>
+          </div>
+
+          {/* Add Reservation Modal */}
+          <Modal show={showAddModal} onHide={() => setShowAddModal(false)} className="reservation-modal">
+            <Modal.Header closeButton>
+              <Modal.Title>New Reservation</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleAddSubmit}>
+                <Form.Group controlId="formName">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Name"
+                    value={formData.Name}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+          
+                <Form.Group controlId="formPhoneNumber">
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="phone_number"
+                    value={formData.phone_number}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formRoomNumber">
+                  <Form.Label>Room Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_number"
+                    value={formData.Room_number}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formRoomView">
+                  <Form.Label>Room View</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_View"
+                    value={formData.Room_View}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formRoomType">
+                  <Form.Label>Room Type</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_Type"
+                    value={formData.Room_Type}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formFloor">
+                  <Form.Label>Floor</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="floor"
+                    value={formData.floor}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formStartDate">
+                  <Form.Label>Start Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="start_date"
+                    value={formData.start_date}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEndDate">
+                  <Form.Label>End Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="end_date"
+                    value={formData.end_date}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formStatus">
+                  <Form.Label>Status</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit" className="mt-3">
+                  Submit
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
+
+          {/* Reservations Table */}
+          <Table striped bordered hover className="reservation-table mt-4">
+            <thead>
+              <tr>
+                <th>Name</th>
+             
+                <th>Phone Number</th>
+                <th>Room Number</th>
+                <th>Room View</th>
+                <th>Room Type</th>
+                <th>Floor</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredReservations.map(reservation => (
+                <tr key={reservation.reservation_id}>
+                  <td>{reservation.Name}</td>
+                 
+                  <td>{reservation.phone_number}</td>
+                  <td>{reservation.Room_number}</td>
+                  <td>{reservation.Room_View}</td>
+                  <td>{reservation.Room_Type}</td>
+                  <td>{reservation.floor}</td>
+                  <td>{reservation.start_date}</td>
+                  <td>{reservation.end_date}</td>
+                  <td>{reservation.status}</td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <Button onClick={() => handleEdit(reservation)} variant="warning" className="edit-btn">
+                        <Pencil />
+                      </Button>
+                      <Button onClick={() => deleteReservation(reservation.reservation_id)} variant="danger" className="delete-btn">
+                        <FaTrash />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+
+          {/* Edit Reservation Modal */}
+          <Modal show={showModal} onHide={handleModalClose} className="reservation-modal">
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Reservation</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleModalSubmit}>
+                <Form.Group controlId="formEditName">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Name"
+                    value={formData.Name}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+              
+                <Form.Group controlId="formEditPhoneNumber">
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="phone_number"
+                    value={formData.phone_number}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditRoomNumber">
+                  <Form.Label>Room Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_number"
+                    value={formData.Room_number}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditRoomView">
+                  <Form.Label>Room View</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_View"
+                    value={formData.Room_View}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditRoomType">
+                  <Form.Label>Room Type</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Room_Type"
+                    value={formData.Room_Type}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditFloor">
+                  <Form.Label>Floor</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="floor"
+                    value={formData.floor}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditStartDate">
+                  <Form.Label>Start Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="start_date"
+                    value={formData.start_date}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditEndDate">
+                  <Form.Label>End Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="end_date"
+                    value={formData.end_date}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEditStatus">
+                  <Form.Label>Status</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit" className="mt-3">
+                  Save Changes
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Reservations;

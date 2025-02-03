@@ -1,0 +1,17 @@
+.custom-form-container {
+    padding: 12px; /* Adjust the padding as needed */
+    height: auto;
+
+  }
+  
+  .custom-form-container h2 {
+    margin-bottom: 10px; /* Adjust the margin as needed */
+  }
+  
+  .custom-form-container .form-group {
+    margin-bottom: 10px; /* Adjust the margin between form groups as needed */
+  }
+  
+  .custom-form-container .form-control {
+    height: 30px; /* Adjust the height of the input fields as needed */
+  }

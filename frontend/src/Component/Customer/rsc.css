@@ -1,0 +1,174 @@
+.room-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+  }
+  
+  .room-data {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .floor-data {
+    width: 100px; /* Adjust width as needed */
+    text-align: center;
+  }
+
+  .top-container {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 53px;
+    left: 100px;
+    width: 100%;
+    max-height: 60px;
+    z-index: 1000;
+    background-color: white;
+    padding: 5px;
+    border-radius: 2px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  
+  
+  
+  
+  .add-building-btn {
+    background-color: #ca3433;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 800px;
+  }
+  
+  
+  .add-building-btn:hover {
+    background-color: #a12b2b;
+  }
+  
+  
+  
+  
+  .stepper-container {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 50px;
+  }
+  
+  
+  .stepper {
+    display: flex;
+  }
+  
+  
+  .step-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  
+  .step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  
+  .step-item.active .step {
+    border-color: #ca3433;
+  }
+  
+  
+  .step-item.complete .step {
+    background-color: #ca3433;
+    color: white;
+  }
+  
+  
+  .step-item.complete p {
+    color: #ca3433;
+  }
+  
+  
+  .step-item p {
+    margin: 0;
+  }
+  
+  
+  
+  
+  .table-container {
+    margin-top: 80px;
+    padding: 0 20px;
+    background-color: #f9f9f9;
+  }
+  
+  
+  
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 226px;
+  }
+  
+  
+  
+  
+  .color-legend {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  
+  .color-legend h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  
+  .legend-items {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  
+  .color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  
+  .legend-item span {
+    font-size: 16px;
+    color: #333;
+  }
+  

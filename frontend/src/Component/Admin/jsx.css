@@ -1,0 +1,167 @@
+.square {
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 6px;
+  }
+  
+  .plus {
+    font-size: 24px;
+  }
+
+  .modal-button {
+    cursor: pointer;
+  }
+  
+  .modal-button .square {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border-radius: 50%;
+    color: white;
+    font-size: 28px;
+  }
+  
+  card {
+    margin: 20px 0;
+    padding: 30px; 
+    border: 1px solid #b4a1a1; 
+    border-radius: 8px; 
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 40px; /* Increased font size for the header */
+  }
+  
+  .card-body {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 18px; /* Increased font size */
+    padding: 30px; /* Increased padding */
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+  }
+  
+  .table td {
+    word-wrap: break-word;
+  }
+  
+  .btn-group .btn {
+    margin-right: 6px;
+  }
+  
+  .floor-plan-table {
+    width: 100%; /* Ensures the table takes full width of its container */
+  }
+  
+  .floor-plan-table th,
+  .floor-plan-table td {
+    padding: 20px; /* Increased padding */
+    border: 3px solid #ddd;
+    text-align: center;
+  }
+  
+  .floor-plan-table th {
+    background-color: #f1f1f1;
+  }
+
+  .floor-location {
+    display: none;
+    color: gray;
+    font-size: 0.9em;
+  }
+  
+  .floor-row:hover .floor-location {
+    display: block;
+  }
+  
+  .floor-row td {
+    position: relative;
+  }
+  
+  .floor-row td .floor-location {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #f8f9fa;
+    padding: 6px;
+    border: 1px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+
+  .circle-button {
+    width: 45px;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgb(22, 22, 22);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 90px;
+  }
+  
+  .plus-icon {
+    color: black;
+    font-size: 24px;
+    line-height: 0;
+    font-weight: bold;
+  }
+
+/* jsx.css */
+
+/* Increase the size of the modal and decrease the width of the modal body */
+.custom-modal {
+  max-width: 500px; /* Decrease width as needed */
+  margin: auto;
+}
+
+/* Center the modal title */
+.custom-modal-title {
+  text-align: center;
+  width: 100%;
+}
+
+/* Adjust the modal body width and padding */
+.custom-modal-body {
+  padding: 1rem; /* Adjust padding if needed */
+  max-width: 100%; /* Ensure body width is controlled by the modal size */
+}
+
+/* Style the form and input fields */
+.custom-form-group {
+  margin-bottom: 1rem;
+}
+
+.custom-form-group .form-control {
+  width: 100%; /* Make sure input fields fit within the modal body */
+}
+
+.custom-submit-button {
+  display: block;
+  margin: 1rem auto 0;
+  margin-right: 20px;
+}

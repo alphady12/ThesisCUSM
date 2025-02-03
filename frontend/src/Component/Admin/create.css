@@ -1,0 +1,96 @@
+:root {
+  --input-border-color: #ccc;
+  --input-focus-color: #080808;
+  --container-bg-color: #faf7f7;
+  --text-color: #080808;
+  --error-color: red;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.create-container {
+  width: 400px;
+  height: 500px;
+  padding: 30px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 8px;
+  background-color: var(--container-bg-color);
+  box-shadow: 0 0 15px var(--shadow-color);
+  margin-left: 30px;
+}
+
+
+.create-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 28px;
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+
+.input {
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+
+.register-button {
+  width: 40%;
+  padding: 12px;
+  font-size: 18px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+
+.error {
+  color: var(--error-color);
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+
+.image-holder {
+  width: 400px;
+  margin-right: 30px;
+}
+
+
+.image-holder img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,284 @@
+/* Modal Styling */
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+ 
+  .modal-header {
+    background-color: #df2e0f;
+    color: #fff;
+    border-bottom: none;
+    font-size: 18px;
+    padding: 10px 10px;
+  }
+ 
+  .modal-title {
+    font-weight: bold;
+    text-align: center;
+  }
+ 
+  .modal-body {
+    padding: 30px;
+  }
+ 
+  .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+  }
+ 
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+ 
+  form label {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+ 
+  form input,
+  form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 3px solid #f14b4b;
+    border-radius: 3px;
+    outline: none;
+    width: 100%;
+  }
+ 
+  form input:focus,
+  form select:focus {
+    border-color: #007bff;
+  }
+ 
+  button[type="submit"] {
+    background-color: #f13f3f;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+ 
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+ 
+  /* Error and Success Messages */
+  p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+ 
+  p[style*="color: red"] {
+    color: red;
+  }
+ 
+  p[style*="color: green"] {
+    color: green;
+  }
+  h1 {
+    font-family: Verdana, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 150px;
+    margin-top: 35px;
+    text-align: center; /* Align to the left */
+    padding-left: 20px; /* Add some left padding for spacing */
+  }
+ 
+  /* Styling for Add Slot Button */
+  button {
+    background-color: #ee341cf6; /* Primary color */
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 20px; /* Spacing between the button and the heading */
+    display: inline-block;
+  }
+ 
+  /* Button Hover Effect */
+  button:hover {
+    background-color: #f15d58; /* Darker shade on hover */
+  }
+ 
+  /* Container for Heading and Button */
+  .container-header {
+    display: flex;
+    justify-content: space-between; /* Space out the heading and button */
+    align-items: center;
+    margin-top: 20px; /* Add some margin to the top */
+  }
+
+
+  .slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+ 
+ 
+ 
+  .slot-box p {
+    margin: 9px 0;
+  }
+ 
+  .slot-box button {
+    background-color: #e74c3c;
+    color: rgb(240, 177, 177);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+ 
+  .slot-box button:hover {
+    background-color: #c0392b;
+  }
+  .slot-box {
+    position: relative;
+    border: 1px solid #f74f4f;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f37676;
+  }
+ 
+ 
+ 
+
+
+.available {
+  background-color: #28a745; /* Green for Available */
+}
+
+
+.reserved {
+  background-color: #dc3545; /* Red for Reserved */
+}
+
+
+.occupied {
+  background-color: #ffc107; /* Yellow for Occupied */
+}
+ 
+ 
+ /* Styling the delete icon (trashcan) */
+.delete-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #921e1e;
+  }
+ 
+  .delete-icon svg {
+    width: 15px;
+    height: 11px;
+    color: black; /* Change color to black */
+    transition: transform 0.4s ease-in-out;
+  }
+ 
+  .delete-icon svg:hover {
+    transform: scale(1.3); /* Slightly enlarge the icon on hover */
+
+
+  }
+
+
+  /* Add Slot Button */
+.btn-primary {
+    background-color: #e93a3ac4;
+    border-color: #444443;
+    padding: 11px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 30px; /* Rounded edges */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+  .btn-primary:focus, .btn-primary:active {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Focus outline */
+  }
+
+  /* Reservation Table */
+.reservation-table {
+    width: 100%; /* Ensures the table takes up the full width of its container */
+    border-collapse: collapse; /* Ensures borders are collapsed into a single line */
+    margin-top: 20px; /* Adds space above the table */
+  }
+  
+  /* Table Header */
+  .reservation-table th {
+    padding: 12px 15px; /* Adjust padding for better readability */
+    background-color: #f8f9fa; /* Light background color */
+    text-align: center; /* Center-align text in headers */
+    font-weight: bold;
+    border: 1px solid #ddd; /* Light border */
+    font-size: 16px; /* Font size for headers */
+  }
+  
+  .reservation-table td {
+    padding: 20px 3px; /* Increase padding for better spacing */
+    text-align: center; /* Center-align text in cells */
+    border: 1px solid #ddd; /* Light border to separate cells */
+    font-size: 14px; /* Font size for data */
+    word-wrap: break-word; /* Ensure long text wraps within the cell */
+    white-space: normal; /* Allows the text to break and wrap within the cell */
+    overflow-wrap: break-word; /* Ensures the word breaks and doesn't overflow */
+    max-width: 250px; /* Increased max-width for more space */
+    width: 200px; /* Set a default width for the cells */
+  }
+
+  .reservation-table th {
+    padding: 20px 3px; /* Increase padding for better spacing */
+    text-align: center; /* Center-align text in cells */
+    border: 1px solid #ddd; /* Light border to separate cells */
+    font-size: 14px; /* Font size for data */
+    word-wrap: break-word; /* Ensure long text wraps within the cell */
+    white-space: normal; /* Allows the text to break and wrap within the cell */
+    overflow-wrap: break-word; /* Ensures the word breaks and doesn't overflow */
+    max-width: 100px; /* Increased max-width for more space */
+    width: 60px; /* Set a default width for the cells */
+  }
+  
+  
+  /* Optional: Styling for even and odd rows for better readability */
+  .reservation-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light grey for even rows */
+  }
+  
+  .reservation-table tr:hover {
+    background-color: #e9ecef; /* Highlight row on hover */
+  }
+  
+  /* Styling for Action Buttons */
+  .reservation-table .edit-btn,
+  .reservation-table .delete-btn {
+    font-size: 14px; /* Ensures the buttons have smaller text */
+    padding: 5px 10px; /* Adjust padding for smaller buttons */
+  }
+  

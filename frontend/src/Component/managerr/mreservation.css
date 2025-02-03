@@ -1,0 +1,22 @@
+/* mreservation.css */
+
+/* Reservations.css */
+.mcontainer {
+    max-height: 80vh; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 20px; /* Optional: Add some padding */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    background-color: #f8f9fa; /* Optional: Set a background color */
+    width: 1120px;
+    margin-top: -5px;
+    margin-left: -40px;
+  }
+  
+  .table-containers {
+    max-height: 60vh; /* Set a maximum height for the table container */
+    margin-left: -155px;
+  
+   
+  }

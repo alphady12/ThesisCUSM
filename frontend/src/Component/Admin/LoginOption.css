@@ -1,0 +1,71 @@
+/* General container styling */
+.LoginOption-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw; /* Fixed width */
+    height: 100vh; /* Fixed height */
+    background-color: #ffffff; /* Light background */
+    padding: 20px;
+    /* border-radius: 20px; Rounded edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: auto; /* Center horizontally */
+    position: absolute; /* Center vertically */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+  }
+  
+  
+  /* Globally remove scrollbars */
+  body, html {
+    margin: 0; /* Remove body margins */
+    padding: 0; /* Remove body padding */
+    overflow: hidden; /* Disable scrolling */
+    height: 100%; /* Set height to full viewport */
+    width: 100%; /* Set width to full viewport */
+  }
+  
+  /* Heading styling */
+  .LoginOption-container h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ca3433; /* Darker text */
+  }
+  
+  /* Button container */
+  .LoginOption-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between buttons */
+    width: 300px; /* Ensure buttons are the same width */
+  }
+  
+  /* Button styling */
+  .LoginOption-group .btn {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 50px; /* Rounded button edges */
+    text-align: center;
+    transition: transform 0.2s, background-color 0.2s; /* Smooth hover effect */
+  }
+  
+  .LoginOption-group .btn-success {
+    background-color: #ca3433; /* Green button */
+    color: white; /* White text */
+    border: none;
+  }
+  
+  .LoginOption-group .btn-success:hover {
+    background-color: #ca3433; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+  }
+  
+  .LoginOption-group .btn-success:active {
+    background-color: #ca3433; /* Even darker green on click */
+    transform: scale(1); /* Reset size on click */
+  }

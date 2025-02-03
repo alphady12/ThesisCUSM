@@ -1,0 +1,41 @@
+building-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.sidebar {
+  background: #CA3433;
+  color: #fff;
+  padding: 20px;
+  width: 180px;
+  height: 100vh; /* Full height of the viewport */
+  position: fixed; /* Keep the sidebar fixed */
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dcontent {
+  flex: 1;
+  margin-left: 200px; /* Adjust for sidebar width */
+  padding: 20px;
+  overflow-y: auto; /* Allow vertical scrolling */
+  height: calc(100vh - 56px); /* Adjust for navbar height */
+  background-color: #fff; /* Ensure background color matches the design */
+}
+
+.table-container {
+  max-height: 400px; /* Set a maximum height for the table */
+  margin-top: 20px; /* Add some margin for spacing */
+} 
+
+.room-type-dot {
+  display: inline-block; /* Ensure it behaves like a block element */
+  width: 10px; /* Adjust size as needed */
+  height: 10px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it circular */
+  margin-left: 5px; /* Space between room number and dot */
+}

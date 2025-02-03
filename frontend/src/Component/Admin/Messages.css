@@ -1,0 +1,120 @@
+
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 86vw;
+  background-color: #f1f3f5;
+  margin-left: 88px;
+}
+
+
+
+
+.messages-header {
+  background-color: white;
+  color: black;
+  margin-top: 1px;
+  padding: 16px;
+  text-align: left;
+  font-size: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.error {
+  color: red;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+
+.messages-list {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+
+
+
+.message-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+
+
+.message-content {
+  margin-bottom: 10px;
+}
+
+
+
+
+.message-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+
+
+
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+
+
+
+
+.reply-button {
+  color: #007bff;
+}
+
+
+.reply-button:hover {
+  color: #0056b3;
+}
+
+
+.delete-button {
+  color: #ca3433;
+}
+
+
+.delete-button:hover {
+  color: #a41e2d;
+}
+
+
+
+
+

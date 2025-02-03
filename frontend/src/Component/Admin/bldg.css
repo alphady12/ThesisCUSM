@@ -1,0 +1,316 @@
+/* Top Container */
+.top-container {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  top: 53px;
+  left: 180px;
+  width: calc(100% - 180px); /* Adjusted to prevent overflow */
+  max-height: 60px;
+  z-index: 1000;
+  background-color: white;
+  padding: 5px 10px; /* Added padding for better spacing */
+  border-radius: 2px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+
+
+
+/* Add Building Button */
+.add-building-btn {
+  background-color: #ca3433;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto; /* Aligns the button to the right */
+}
+
+
+
+
+.add-building-btn:hover {
+  background-color: #a12b2b;
+}
+
+
+
+
+/* Stepper Container and Styles */
+.stepper-container {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adjusted for better spacing between steps */
+  margin-left: 30px;
+}
+
+
+
+
+.stepper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+
+
+
+.step-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+
+
+
+/* Create lines between steps */
+.step-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 40px; /* Adjust this to control the line length */
+  height: 2px;
+  background-color: #ccc; /* Default line color */
+  transform: translateY(-50%);
+  z-index: 0; /* Ensure it's behind the step circles */
+}
+
+
+
+
+.step-item.active:not(:last-child)::after,
+.step-item.complete:not(:last-child)::after {
+  background-color: #ca3433; /* Active and complete step line color */
+}
+
+
+
+
+/* Step circles */
+.step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: white;
+  margin-right: 10px; /* Adjusted for better spacing */
+  z-index: 1; /* Make sure it is above the line */
+}
+
+
+
+
+.step-item.active .step {
+  border-color: #ca3433;
+}
+
+
+
+
+.step-item.complete .step {
+  background-color: #ca3433;
+  color: white;
+}
+
+
+
+
+.step-item.complete p {
+  color: #ca3433;
+}
+
+
+
+
+.step-item p {
+  margin: 0;
+}
+
+
+
+
+/* Table Container */
+.table-container {
+  margin-top: 20px;
+  padding: 0 20px;
+  background-color: #f9f9f9;
+}
+
+
+
+
+.table {
+  width: 200%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Adjusted margin for consistency */
+}
+
+
+
+
+/* Color Legend */
+.color-legend {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+
+
+.color-legend h4 {
+  font-size: 22px;
+  margin-bottom: 1px;
+  font-weight: bold;
+}
+
+
+
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px; /* Adjusted for more consistent spacing */
+}
+
+
+
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+
+
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+
+
+
+.legend-item span {
+  font-size: 16px;
+  color: #333;
+}
+
+
+
+
+/* Sidebar */
+.sidebar2 {
+  width: 70px;
+  margin-left: 60px;
+  height: 100%;
+  background: #4d4b4bd7;
+  position: fixed;
+  left: 120px;
+  transition: left 0.3s;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  margin-top: 40px;
+}
+
+
+
+
+.floor-row {
+  margin-bottom: 20px; /* Adds space below each floor's row */
+}
+
+
+.floor-row td {
+  padding-bottom: 15px; /* Space inside the cell */
+}
+
+
+/* Optional: Add some padding for the buttons */
+button {
+  margin-top: 10px;
+}
+
+
+/* Optional: Add some styling for the "Add Floor" button */
+button.add-floor-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.room-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+.room-tile {
+  width: 120px; /* Adjust based on design needs */
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+.room-tile p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.room-tiles p {
+  font-size: 14px;
+  color: #333;
+}
+
+
+.table {
+  width: 100%; /* Make the table take the full width of its container */
+  table-layout: fixed; /* Use fixed layout to prevent overflow */
+  border-collapse: collapse; /* Collapse borders for a cleaner look */
+}
+
+.table th, .table td {
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping */
+  padding: 8px; /* Add some padding for better spacing */
+  border: 1px solid #dee2e6; /* Add border to table cells */
+}
+
+.top-container {
+  margin-bottom: 20px; /* Add some space below the top container */
+}
+
+.stepper-container {
+  margin-bottom: 20px; /* Add space below the stepper */
+}
+
+

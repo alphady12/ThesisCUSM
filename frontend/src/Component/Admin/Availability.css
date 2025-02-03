@@ -1,0 +1,11 @@
+.floor-room-container {
+    flex-grow: 1;
+    padding: 20px; /* Add some padding */
+    margin-left: 20px; /* Add left margin */
+  }
+  
+  .floor-table {
+    width: 100%; /* Ensure the table takes full width */
+    margin-top: 20px; /* Add some margin for spacing */
+    margin-left: 19px; /* Add left margin to the table */
+  }

@@ -1,0 +1,31 @@
+body {
+    overflow-x: hidden; /* Prevent horizontal scrolling on the page */
+  }
+  
+  .carousel-container {
+    width: 100%; /* Ensure the carousel takes up the full width */
+    overflow: hidden; /* Prevent the carousel from spilling out horizontally */
+    position: relative; /* Ensure positioning is managed correctly */
+  }
+  
+  .carousel {
+    width: 100%; /* Ensure carousel occupies the full width of the container */
+    overflow: hidden; /* Prevent scrolling inside carousel */
+    position: relative; /* Keep carousel inside container */
+  }
+  
+  .carousel-item {
+    width: 100%; /* Ensure each item fills the container */
+  }
+  
+  .sidebar {
+    overflow-y: auto; /* Allow vertical scroll in the sidebar */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 180px;
+    background-color: #CA3433;
+    color: #fff;
+    padding: 20px;
+  }

@@ -1,0 +1,91 @@
+.scontainer {
+    max-height: 99vh; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 20px; /* Optional: Add some padding */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    background-color: #f8f9fa; /* Optional: Set a background color */
+    width: 1260px;
+    margin-top: -5px;
+    margin-left: 189px;
+  }
+  
+  
+  
+  .sscrollable-table-container {
+    max-height: 60vh; /* Set a maximum height for the table container */
+    margin-left: -155px;
+  
+  }
+  
+  .reservation-table {
+    width: 100%; /* Make the table take the full width of the container */
+    table-layout: fixed; /* Use fixed layout to respect column widths */
+  }
+  
+  .reservation-table th,
+  .reservation-table td {
+    text-align: center; /* Center align text in table cells */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+  
+  .reservation-table th {
+    background-color: #f8f9fa; /* Light background for header */
+    position: sticky; /* Make header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 1; /* Ensure it stays above other content */
+  }
+  
+  /* Adjust specific column widths if needed */
+  .reservation-table th:nth-child(1),
+  .reservation-table td:nth-child(1) {
+    width: 110px;
+  }
+  
+  .reservation-table th:nth-child(2),
+  .reservation-table td:nth-child(2) {
+    width: 119px;
+  }
+  
+  .reservation-table th:nth-child(3),
+  .reservation-table td:nth-child(3) {
+    width: 150px;
+  }
+  
+  .reservation-table th:nth-child(4),
+  .reservation-table td:nth-child(4) {
+    width: 100px;
+  }
+  
+  .reservation-table th:nth-child(5),
+  .reservation-table td:nth-child(5) {
+    width: 120px;
+  }
+  
+  .reservation-table th:nth-child(6),
+  .reservation-table td:nth-child(6) {
+    width: 110px;
+  }
+  
+  .reservation-table th:nth-child(7),
+  .reservation-table td:nth-child(7) {
+    width: 100px;
+  }
+  
+  .reservation-table th:nth-child(8),
+  .reservation-table td:nth-child(8) {
+    width: 100px;
+  }
+  
+  .reservation-table th:nth-child(9),
+  .reservation-table td:nth-child(9) {
+    width: 90px;
+  }
+  
+  .reservation-table th:nth-child(10),
+  .reservation-table td:nth-child(10) {
+    width: 146px;
+  }
