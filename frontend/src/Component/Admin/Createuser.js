@@ -6,35 +6,27 @@ import { Link } from 'react-router-dom';
 import './create.css';
 import signUpImage from './Dashboard.png';
 
-
 function RegistrationForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role_name: 'Admin' // Automatically assign 'Admin' role
   });
 
-
   const [showModal, setShowModal] = useState(false);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/api/users', formData);
       console.log(response.data);
-      setFormData({
-        name: '',
-        email: '',
-        password: ''
-      });
       setShowModal(true);
     } catch (error) {
       console.error('Error registering user:', error);
@@ -42,16 +34,14 @@ function RegistrationForm() {
     }
   };
 
-
   const handleCloseModal = () => {
     setShowModal(false);
     navigate('/login');
   };
 
-
   return (
     <div className="container">
-      <div className="image-holder">
+      <div className="image-holders">
         <img src={signUpImage} alt="Sign Up" />
       </div>
       <div className="create-container">
@@ -116,10 +106,4 @@ function RegistrationForm() {
   );
 }
 
-
 export default RegistrationForm;
-
-
-
-
-

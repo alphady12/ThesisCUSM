@@ -17,15 +17,22 @@ building-detail {
   flex-direction: column;
   align-items: center;
 }
-
 .dcontent {
   flex: 1;
   margin-left: 200px; /* Adjust for sidebar width */
   padding: 20px;
-  overflow-y: auto; /* Allow vertical scrolling */
+  width: 1200px;
   height: calc(100vh - 56px); /* Adjust for navbar height */
   background-color: #fff; /* Ensure background color matches the design */
+  max-width: 200%;
+  overflow-y: auto;
 }
+
+/* Hide the scrollbar in all browsers */
+.dcontent::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+}
+
 
 .table-container {
   max-height: 400px; /* Set a maximum height for the table */
@@ -38,4 +45,91 @@ building-detail {
   height: 10px; /* Adjust size as needed */
   border-radius: 50%; /* Make it circular */
   margin-left: 5px; /* Space between room number and dot */
+}
+
+.building-detail-page {
+  width:  380%;
+  margin: auto; /* Centers the table */
+  margin-top: 5px;
+  height: 400px; /* Increase height for better visibility */
+  overflow-y: scroll; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  border: 1px solid #ccc; /* Optional: Adds a border for better visibility */
+  padding: 10px; /* Optional: Adds some space inside */
+  margin-left: -20px;
+}
+
+
+.custom-table {
+  font-size: 13px; /* Reduce font size */
+  width: 1200px;
+  transform: scale(0.7); /* Zoom out to 80% */
+  transform-origin: top left; /* Ensures proper positioning */
+  margin-right: 200px;
+ 
+  overflow-x: scroll;
+}
+
+
+.custom-table th, 
+.custom-table td {
+  padding: 5px 8px; /* Decrease padding to shrink row height */
+  height: 5px; /* Reduce row height */
+  font-size: 20px;
+  text-align: center;
+  width: 50px;
+}
+
+.room-tiles {
+  display: flex;
+  flex-wrap: wrap; /* Ensures tiles stay within container */
+  gap: 10px; /* Reduce space between tiles */
+  justify-content: center; /* Centers tiles */
+ 
+ 
+}
+
+.room-tile {
+  width: 89px;  /* Set fixed width */
+  height: 70px; /* Set fixed height */
+  font-size: 1px; /* Reduce font size */
+  padding: 5px; /* Reduce padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px; /* Keep rounded corners */
+  border: 1px solid #ccc; /* Light border */
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.room-tile p {
+  margin: 2px 0; /* Reduce spacing between text */
+  font-size: 15px; /* Make text smaller */
+  font-weight: bold; /* Optional: Make it more readable */
+  text-align: center; /* Ensure text is centered */
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Prevents text overflow */
+  text-overflow: ellipsis; /* Adds "..." if text overflows */
+}
+
+.building-details {
+
+  transform: scale(0.6); 
+  margin-top: -60px;
+  margin-left: -199px;
+}
+.details{
+  transform: scale(0.8); 
+}
+
+.add-floors button {
+  transform: scale(0.6);
+}
+
+.custom-table td {
+
+height: 10px;
 }

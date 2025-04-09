@@ -1,11 +1,13 @@
 body {
     overflow-x: hidden; /* Prevent horizontal scrolling on the page */
+    
   }
   
   .carousel-container {
     width: 100%; /* Ensure the carousel takes up the full width */
     overflow: hidden; /* Prevent the carousel from spilling out horizontally */
     position: relative; /* Ensure positioning is managed correctly */
+    
   }
   
   .carousel {
@@ -16,6 +18,7 @@ body {
   
   .carousel-item {
     width: 100%; /* Ensure each item fills the container */
+    
   }
   
   .sidebar {

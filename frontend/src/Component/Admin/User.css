@@ -1,56 +1,320 @@
-.users-table-margin-left {
-  margin-left: -200px; /* Adjust the value as needed */
-  margin-left: -180px;
- width: 1130px;
-
+.user-table-containers {
+  margin-bottom: 100px;
+  max-height: 80vh;
+  width: 100%;
+  max-width: 2250px;
 }
 
-.users-scroll-container {
-  height: 100vh; /* Full height of the viewport */
-  overflow-y: auto; /* Allow vertical scrolling */
-  margin-left: 100px;
+
+
+
+  h1 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 10px;
+    font-weight: lighter;
+    margin-Right: 900px;
+  }
+ 
+ 
+  .search-bard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: -189px;
+    width: 100%; /* Reduces overall width */
+    height: 5px; /* Adjust height */
 }
 
+  
+ 
+ 
+  .search-group {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+ 
+ 
+  .search-input {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #555;
+    padding: 8px 12px;
+    margin-bottom: 30px;
+  }
+ 
+ 
+  .search-input:focus {
+    outline: none;
+    border-color: #ca3433;
+    box-shadow: 0 0 5px rgba(202, 52, 51, 0.2);
+  }
+ 
+ 
+  .add-btn {
+    background-color: #ca3433;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-bottom: -10px;
+    margin-left: -2px ;
+  }
+ 
+ 
+  .add-btn:hover {
+    background-color: #b52e30;
+  }
+ 
+ 
+  .users-table {
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: scale(0.5);
+    width: 2590px
+    
+    
+    
+   
+  }
+ 
+  .text-centerssss {
+    white-space: nowrap; /* Keeps text on one line */
+    margin-left: -179px;
+    margin-bottom: 140px;
+    font-size: 11px;
+  }
+  
+ 
+  .users-table th {
+    background-color: #ca3433;
+    color: white;
+    padding: 12px;
+    text-align: center;
+  }
+ 
+ 
+  .user-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+ 
+ 
+  .user-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+ 
+ 
+  .user-table td {
+    vertical-align: middle;
+    padding: 12px;
+    font-size: 20px;
+  }
+ 
+ 
+  .edit-btn {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+ 
+ 
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+ 
+ 
+  .delete-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+ 
+ 
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+ 
+ 
+  .modal-header {
+    background-color: #ca3433;
+    color: white;
+    border-bottom: none;
+  }
+ 
+ 
+  .modal-title {
+    font-weight: bold;
+  }
+ 
+ 
+  .modal-body {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+ 
+ 
+  .form-control {
+    margin-bottom: 15px;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+
+
+
+ 
+ 
+  .form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+ 
+ 
+  button[type="submit"] {
+    background-color: #ca3433;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+ 
+ 
+  button[type="submit"]:hover {
+    background-color: #b52e30;
+  }
+ 
+ 
+  .position-relative {
+    position: relative;
+  }
+ 
+ 
+  .caret-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+ 
+ 
+ 
+  .container {
+    padding: 30px;
+  }
+ 
+  .move-up {
+    margin-top: -125px; /* Adjust this value as needed */
+  }
+ 
+ 
+ 
+  .search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+ 
+  .table-container {
+    margin-top: 120px; /* Ensure table starts below the fixed header */
+    max-height: 500px; /* Adjust this as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+  }
+
+
+  .user-table-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+    overflow: auto;
+   
+    /* Removes side borders but keeps top and bottom */
+    border-top:none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+   
+    width: 149%;
+    max-width: 1363px;
+    margin-left: -150px;
+    margin-top: -10px;
+  }
+ 
+  /* Completely hide the scrollbar for WebKit browsers (Chrome, Safari) */
+  .user-table-container::-webkit-scrollbar {
+    display: none;
+  }
+ 
+
+
+  /* Moves the container slightly up */
+.container.move-up {
+  margin-top: -20px; /* Adjust as needed */
+}
+
+
+/* Centers content */
+.row.justify-content-center {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Limits the width of the column */
+.col-md-10 {
+  max-width: 900px; /* Adjust width as needed */
+}
+
+
+/* Styles for the main heading */
+h1.text-center {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+/* Search bar and button layout */
 .search-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 60px;
-margin-top: 119px;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 90px;
 }
 
-.search-group {
-  flex-grow: 1;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
 
-.search-input {
-  background-color: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-}
 
+
+/* Search input focus effect */
 .search-input:focus {
   outline: none;
-  border-color: #ca3433;
-  box-shadow: 0 0 5px rgba(202, 52, 51, 0.2);
+  border-color: #ca3433; /* Your preferred primary color */
+  box-shadow: 0 0 5px rgba(202, 52, 51, 0.5);
 }
 
+
+/* Add button styling */
 .add-btn {
-  background-color: #ca3433;
-  border: none;
-  color: white;
-  padding: 10px 20px;
+  font-size: 30;
   font-weight: bold;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  margin-bottom: 13px;
 }
 
-.add-btn:hover {
-  background-color: #b52e30;
-}
+

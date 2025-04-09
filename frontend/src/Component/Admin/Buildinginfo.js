@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -8,14 +9,18 @@ import Swal from 'sweetalert2';
 import Modal from 'react-bootstrap/Modal';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { Card } from "react-bootstrap";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser , faEnvelope, faHome, faAddressCard, faTable, faBuilding, faCalendarAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser , faEnvelope, faHome, faAddressCard, faTable, faBuilding, faCalendarAlt,faClipboard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import './buildinginfo.css';
 
 const BuildingDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [building, setBuilding] = useState(null);
+  const [changeHistory, setChangeHistory] = useState({});
+  const [showChangeHistoryModal, setShowChangeHistoryModal] = useState(false);
   const [totalRoomsSetUp, setTotalRoomsSetUp] = useState(0);
   const [floors, setFloors] = useState([]);
   const [error, setError] = useState('');
@@ -36,6 +41,10 @@ const BuildingDetail = () => {
   const [roomNumber, setRoomNumber] = useState(null);
   const [numRoomsToSetup, setNumRoomsToSetup] = useState(1);
   const [loading, setLoading] = useState(true); // Loading state
+  const date = new Date('2025-04-09T09:23:05');
+const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+const formattedTime = date.toLocaleTimeString('en-US', options);
+console.log(formattedTime); // Outputs: "9:23:05 AM"
   
 
   const fetchBuildingDetails = async () => {
@@ -56,7 +65,17 @@ const BuildingDetail = () => {
       setLoading(false); // End loading
     }
   };
-
+  const getRoomImage = (roomType) => {
+    switch (roomType) {
+      case 'Studio':
+        return require('./studio.jpeg'); // No need to include the full path
+      case '1Br':
+        return require('./1br.jpeg'); // No need to include the full path
+      case '2Br':
+        return require('./2br.jpeg'); // No need to include the full path
+    // No need to include the full path
+    }
+  };
   const fetchRoomsForFloor = async (floorId) => {
     try {
       const response = await axios.get(`http://localhost:3001/api/buildingsssssss/${id}/rooms/${floorId}`);
@@ -170,33 +189,40 @@ const BuildingDetail = () => {
   const handleSetUpRooms = (floorId) => {
     const floor = floors.find(f => f.floor_id === floorId);
     if (!floor || !floor.rooms || floor.rooms.length === 0) {
-      Swal.fire('Warning', 'Please add rooms first!', 'warning');
+        Swal.fire('Warning', 'Please add rooms first!', 'warning');
     } else {
-      setFloorIdForSetupRooms(floorId);
-      setRoomsForSetup(floor.rooms);
-      setShowSetupRoomsModal(true);
-    }
-  };
+        // Create a new array of rooms with modified identifiers
+        const modifiedRooms = floor.rooms.map((room, index) => ({
+            ...room,
+           
+        }));
 
-  const handleSubmitSetupRooms = async () => {
-    try {
+        setFloorIdForSetupRooms(floorId);
+        setRoomsForSetup(modifiedRooms); // Use the modified rooms array
+        setShowSetupRoomsModal(true);
+    }
+};
+
+const handleSubmitSetupRooms = async () => {
+  try {
       const response = await axios.get(`http://localhost:3001/api/buildingssssss/${id}/rooms/${floorIdForSetupRooms}/available`);
       const availableRooms = response.data.availableRooms;
 
       if (numRoomsToSetup > availableRooms) {
-        Swal.fire('Error', `You can only set up ${availableRooms} rooms on this floor.`, 'error');
-        return;
+          Swal.fire('Error', `You can only set up ${availableRooms} rooms on this floor.`, 'error');
+          return;
       }
 
+      // Generate room data without including the floor ID in the display name
       const roomsData = Array.from({ length: numRoomsToSetup }).map(() => ({
-        RoomType: roomType,
-        price: price,
-        view: view,
+          RoomType: roomType,
+          price: price,
+          view: view
       }));
 
       const setupResponse = await axios.post(`http://localhost:3001/api/buildingsetup/${id}/rooms/${floorIdForSetupRooms}/setup`, {
-        numRooms: numRoomsToSetup,
-        rooms: roomsData
+          numRooms: numRoomsToSetup,
+          rooms: roomsData
       });
 
       Swal.fire('Success', setupResponse.data.message, 'success');
@@ -205,12 +231,12 @@ const BuildingDetail = () => {
       // Update available rooms after setting up rooms
       setAvailableRooms(prev => prev - numRoomsToSetup);
       fetchBuildingDetails(); // Optionally refresh data from server
-    } catch (error) {
+  } catch (error) {
       console.error('Error setting up rooms:', error);
       const errorMessage = error.response?.data?.error || error.message || 'There was an error setting up rooms. Please try again.';
       Swal.fire('Error', errorMessage, 'error');
-    }
-  };
+  }
+};
 
   const getRoomTypeColor = (type) => {
     switch (type) {
@@ -250,17 +276,57 @@ const BuildingDetail = () => {
 
   const handleSaveEdit = async () => {
     try {
-      const updatedRoom = {
-        new_room_number: roomNumber,
-        RoomType: roomType,
-        price: price,
-        view: view,
-        bldg_id: selectedRoom.bldg_id,
-        floor_id: selectedRoom.floor_id
-      };
-
+      const updatedRoom = {};
+      let changeDetails = [];
+  
+      // Only add fields that have been changed
+      if (roomNumber !== selectedRoom.room_number) {
+        updatedRoom.new_room_number = roomNumber; // Update room number if changed
+        changeDetails.push(`Room Number changed from ${selectedRoom.room_number} to ${roomNumber}`);
+      }
+      if (roomType !== selectedRoom.RoomType) {
+        updatedRoom.RoomType = roomType; // Update room type if changed
+        changeDetails.push(`Room Type changed from ${selectedRoom.RoomType} to ${roomType}`);
+      }
+      if (price !== selectedRoom.price) {
+        updatedRoom.price = price; // Update price if changed
+        changeDetails.push(`Price changed from ${formatPrice(selectedRoom.price)} to ${formatPrice(price)}`);
+      }
+      if (view !== selectedRoom.view) {
+        updatedRoom.view = view; // Update view if changed
+        changeDetails.push(`View changed from ${selectedRoom.view} to ${view}`);
+      }
+  
+      // Check if there are any fields to update
+      if (Object.keys(updatedRoom).length === 0) {
+        Swal.fire('Info', 'No changes made to the room details.', 'info');
+        return; // Exit if no changes were made
+      }
+  
+      // Send the updated fields to the server
       await axios.put(`http://localhost:3001/api/roomsss/${selectedRoom.room_id}`, updatedRoom);
-
+  
+      // Log the changes with the current date and time
+      const timestamp = new Date().toLocaleString();
+      const changeDetailString = changeDetails.join(', ');
+  
+      // Create an object to store the change details, timestamp, and room ID
+      const changeEntry = { roomId: selectedRoom.room_id, timestamp, details: changeDetailString };
+  
+      // Update the change history state for the specific room
+      setChangeHistory(prevHistory => {
+        const updatedHistory = {
+          ...prevHistory,
+          [selectedRoom.room_id]: [
+            ...(prevHistory[selectedRoom.room_id] || []),
+            changeEntry
+          ]
+        };
+        // Save to local storage
+        localStorage.setItem('changeHistory', JSON.stringify(updatedHistory));
+        return updatedHistory;
+      });
+  
       Swal.fire('Success', 'Room updated successfully.', 'success');
       setIsEditMode(false);
       fetchBuildingDetails(); // Refresh data after edit
@@ -270,6 +336,41 @@ const BuildingDetail = () => {
     }
   };
 
+
+  useEffect(() => {
+    const storedChangeHistory = localStorage.getItem('changeHistory'); // Get the specific item
+    if (storedChangeHistory) {
+      try {
+        setChangeHistory(JSON.parse(storedChangeHistory)); // Parse the JSON string
+      } catch (error) {
+        console.error('Error parsing change history:', error);
+      }
+    }
+  }, []);
+  
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    
+    // Format the date
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    
+    // Format the time
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12; // Convert to 12-hour format
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    
+    const formattedTime = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds} ${ampm}`;
+    
+    // Combine date and time
+    return `${formattedDate}, ${formattedTime}`;
+};
+
+  
   const handleLogout = () => {
     // Implement logout functionality
     console.log('Logout clicked');
@@ -348,10 +449,7 @@ const BuildingDetail = () => {
               <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
               Building
             </Link>
-            <Link to="/dashboard/reservations" style={linkStyle}>
-              <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
-              Reservations
-            </Link>
+          
             <Nav.Link
               onClick={handleLogout}
               style={{
@@ -370,7 +468,7 @@ const BuildingDetail = () => {
           </Nav>
         </div>
 
-        <div className="dcontent" style={{ flex: 1, position: 'relative', marginLeft: '200px', padding: '20px' }}>
+        <div className="dcontent" style={{ flex: 1, position: 'relative', marginLeft: '125px', padding: '20px', width: '1130px', }}>
           <Container fluid>
             {loading ? (
               <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -380,18 +478,23 @@ const BuildingDetail = () => {
               <p>{error}</p>
             ) : building ? (
               <>
-                <div className="building-details">
-                  {/* Add any building details you want to display here */}
-                </div>
+               <div className="details">
+   <Card style={{ width: "350px", padding: "10px", borderRadius: "10px", boxShadow: "0 2px 5px rgba(0,0,0,0.2)",marginLeft:'-169px',marginTop:'-30px' }}>
+    <Card.Body>
+      <h6 className="mb-2"><strong>Building Name:</strong> {building.bldg_name}</h6>
+      <h6 className="mb-0"><strong>Location:</strong> {building.location}</h6>
+    </Card.Body>
+  </Card>
+</div>
 
-                <div className="floors-list" style={{ marginTop: '1px' }}>
-                  <h3 style={{ marginLeft: '150px' }}>{building.bldg_name}</h3>
-                  <Button onClick={() => setShowAddFloorsModal(true)} style={{ marginLeft: '905px', marginBottom: '10px' }}>
+                {/* <div className="floors-list" style={{ marginTop: '1px' }}> */}
+               
+                  <Button className = 'add-floors button' onClick={() => setShowAddFloorsModal(true)} style={{ marginLeft: '39px', marginBottom: '-25px',height:'40px',padding:'10px' }}>
                     Add Floors
                   </Button>
                   
                   {/* Room Type Legend */}
-                  <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', marginLeft:'450px' }}>
+                  <div style={{ marginBottom: '-90px', display: 'flex', alignItems: 'center', marginLeft:'385px',marginBottom: '1000px' }}>
                     <div style={{ width: '20px', height: '20px', backgroundColor: '#ca3433', marginRight: '5px' }}></div>
                     <span>Studio</span>
                     <div style={{ width: '20px', height: '20px', backgroundColor: '#28a745', marginLeft: '15px', marginRight: '5px' }}></div>
@@ -403,67 +506,82 @@ const BuildingDetail = () => {
                   </div>
                 
                   {/* Add the table container */}
-                  <div className="building-detail-page">
-                    <Table className="custom-table" striped bordered hover responsive style={{ width: '100%', minWidth: '800px', marginRight: '250px', height: '400px' }}>
+                  {/* <div className="building-detail-page" style={{ marginTop: '-950px'}}> */}
+
+                    <Table className="custom-table" style={{ width: '1775px', minWidth: '300px', marginLeft: '-30px', height: '190px',marginTop:'-990px'}}>
                       <thead>
                         <tr>
                           <th style={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1 }}>Floor</th>
-                          <th style={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1 }}>Rooms</th>
+                          <th style={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1, width: '198px',height:'20px' }}>Rooms</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {floors.length > 0 ? (
-                          floors.map((floor, index) => (
-                            <tr key={floor.floor_id}>
-                              <td>{`Floor ${index + 1}`}</td>
-                              <td>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => handleAddRooms(floor.floor_id)}
-                                  style={{ marginRight: '10px', marginTop: '10px' }}
-                                >
-                                  Add Rooms
-                                </Button>
-                                <Button
-                                  variant="danger"
-                                  onClick={() => handleSetUpRooms(floor.floor_id)}
-                                  style={{ marginTop: '10px' }}
-                                >
-                                  Set Up Rooms
-                                </Button>
-                                <div className="room-tiles">
-                                  {floor.rooms && floor.rooms.length > 0 ? (
-                                    floor.rooms.map((room, index) => (
-                                      <div
-                                        key={index}
-                                        className={`room-tile ${room.isSetUp ? 'highlight' : ''} ${room.isSetUp ? 'blue-highlight' : ''}`} // Highlight if room is set up
-                                        onClick={() => handleRoomClick(room)}
-                                      >
-                                        <p>{` ${room.room_number}`}</p>
-                                        <span
-                                          className="room-type-dot"
-                                          style={{
-                                            backgroundColor: getRoomTypeColor(room.RoomType), // Use RoomType to determine color
-                                          }}
-                                        />
-                                      </div>
-                                    ))
-                                  ) : (
-                                    <p>No rooms available for this floor.</p>
-                                  )}
-                                </div>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan="2">No floors available.</td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </Table>
+  {floors.length > 0 ? (
+    floors.map((floor, index) => (
+      <tr key={floor.floor_id}>
+        <td>{`Floor ${index + 1}`}</td>
+        <td>
+          <Button
+            variant="danger"
+            onClick={() => handleAddRooms(floor.floor_id)}
+            style={{ marginRight: '10px', marginTop: '10px' }}
+          >
+            Add Rooms
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => handleSetUpRooms(floor.floor_id)}
+            style={{ marginTop: '10px' }}
+          >
+            Set Up Rooms
+          </Button>
+          <div className="room-tiles">
+            {floor.rooms && floor.rooms.length > 0 ? (
+              [...floor.rooms] // Create a new sorted array
+              .sort((a, b) => a.room_number - b.room_number) // Sort in ascending order
+              .map((room, index) => {
+                // Ensure room_number is a string
+                let roomNumber = room.room_number ? String(room.room_number) : '';
+
+                // Extract the last part after the last '-'
+                let displayRoomNumber = roomNumber.includes('-')
+                  ? roomNumber.split('-').pop() // Gets only the number part after the last '-'
+                  : roomNumber;
+
+                return (
+                  <div
+                    key={index}
+                    className={`room-tile ${room.isSetUp ? 'highlight' : ''} ${room.isSetUp ? 'blue-highlight' : ''}`}
+                    onClick={() => handleRoomClick(room)}
+                  >
+                    <p>{displayRoomNumber || 'N/A'}</p> {/* Display cleaned room number */}
+                    <p>{room.view || 'No View'}</p>
+                    <span
+                      className="room-type-dot"
+                      style={{
+                        backgroundColor: getRoomTypeColor(room.RoomType),
+                      }}
+                    />
                   </div>
-                </div>
+                );
+              })
+            ) : (
+              <p>No rooms available for this floor.</p>
+            )}
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="2">No floors available.</td>
+    </tr>
+  )}
+</tbody>
+
+                    </Table>
+                  {/* </div> */}
+                {/* </div> */}
               </>
             ) : (
               <p>Loading...</p>
@@ -496,75 +614,96 @@ const BuildingDetail = () => {
               </Modal.Footer>
             </Modal>
 
+           
             {/* Room Details Modal */}
             <Modal show={selectedRoom !== null} onHide={() => setSelectedRoom(null)}>
-              <Modal.Header closeButton>
-                <Modal.Title>Edit Room Details</Modal.Title>
-              </Modal.Header>
+            <Modal.Header closeButton>
+  <Modal.Title style={{ display: 'flex', alignItems: 'center' }}>
+    Edit Room Details
+    <button
+  style={{
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    marginLeft: '10px',
+  }}
+  onClick={() => {
+    setShowChangeHistoryModal(true); // Open the change history modal
+  }}
+>
+  <FontAwesomeIcon icon={faClipboard} />
+</button>
+  </Modal.Title>
+</Modal.Header>
               <Modal.Body>
-                {selectedRoom && (
-                  <div>
-                    <p>
-                      <strong>Room Number:</strong>{" "}
-                      {isEditMode ? (
-                        <input
-                          type="number"
-                          value={roomNumber}
-                          onChange={(e) => setRoomNumber(e.target.value)}
-                          style={{ width: "100%", padding: "8px" }}
-                        />
-                      ) : (
-                        selectedRoom.room_number
-                      )}
-                    </p>
-                    <p>
-                      <strong>Room Type:</strong>{" "}
-                      {isEditMode ? (
-                        <select
-                          value={roomType}
-                          onChange={(e) => setRoomType(e.target.value)}
-                          style={{ width: "100%", padding: "8px" }}
-                        >
-                          <option value="Studio">Studio</option>
-                          <option value="1Br">1 Br</option>
-                          <option value="2Br">2 Br</option>
-                        </select>
-                      ) : (
-                        selectedRoom.RoomType
-                      )}
-                    </p>
-                    <p>
-                      <strong>Room View:</strong>{" "}
-                      {isEditMode ? (
-                        <select
-                          value={view}
-                          onChange={(e) => setView(e.target.value)}
-                          style={{ width: "100%", padding: "8px" }}
-                        >
-                          <option value="Nature View">Nature View</option>
-                          <option value="Amenity View">Amenity View</option>
-                        </select>
-                      ) : (
-                        selectedRoom.view
-                      )}
-                    </p>
-                    <p>
-                      <strong>Price:</strong>{" "}
-                      {isEditMode ? (
-                        <input
-                          type="number"
-                          value={price}
-                          onChange={(e) => setPrice(parseInt(e.target.value, 10))}
-                          min="1"
-                          style={{ width: "100%", padding: "8px" }}
-                        />
-                      ) : (
-                        formatPrice(selectedRoom.price)
-                      )}
-                    </p>
-                  </div>
-                )}
-              </Modal.Body>
+  {selectedRoom && (
+    <div>
+      <img
+        src={getRoomImage(selectedRoom.RoomType)}
+        alt={`${selectedRoom.RoomType} Room`}
+        style={{ width: '100%', height: 'auto', marginBottom: '10px' }}
+      />
+      <p>
+        <strong>Room Number:</strong>{" "}
+        {isEditMode ? (
+          <input
+            type="number"
+            value={roomNumber}
+            onChange={(e) => setRoomNumber(e.target.value)}
+            style={{ width: "100%", padding: "8px" }}
+          />
+        ) : (
+          selectedRoom.room_number
+        )}
+      </p>
+      <p>
+        <strong>Room Type:</strong>{" "}
+        {isEditMode ? (
+          <select
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+            style={{ width: "100%", padding: "8px" }}
+          >
+            <option value="Studio">Studio</option>
+            <option value="1Br">1 Br</option>
+            <option value="2Br">2 Br</option>
+          </select>
+        ) : (
+          selectedRoom.RoomType
+        )}
+      </p>
+      <p>
+        <strong>Room View:</strong>{" "}
+        {isEditMode ? (
+          <select
+            value={view}
+            onChange={(e) => setView(e.target.value)}
+            style={{ width: "100%", padding: "8px" }}
+          >
+            <option value="Nature View">Nature View</option>
+            <option value="Amenity View">Amenity View</option>
+          </select>
+        ) : (
+          selectedRoom.view
+        )}
+      </p>
+      <p>
+        <strong>Price:</strong>{" "}
+        {isEditMode ? (
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(parseInt(e.target.value, 10))}
+            min="1"
+            style={{ width: "100%", padding: "8px" }}
+          />
+        ) : (
+          formatPrice(selectedRoom.price)
+        )}
+      </p>
+    </div>
+  )}
+</Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={() => setSelectedRoom(null)}>
                   Close
@@ -581,6 +720,69 @@ const BuildingDetail = () => {
               </Modal.Footer>
             </Modal>
 
+           
+           
+           
+           
+           
+            <Modal 
+  show={showChangeHistoryModal} 
+  onHide={() => setShowChangeHistoryModal(false)} 
+  style={{ maxWidth: '800px', width: '100%' }} // Set the modal width
+>
+  <Modal.Header closeButton>
+    <Modal.Title>Change History for Room {selectedRoom?.room_number}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body style={{ padding: '20px' }}>
+    <div style={{ marginBottom: '20px' }}>
+      <Table striped bordered hover style={{ marginTop: '0', width: '100%' }}>
+        <thead>
+          <tr>
+            <th style={{ backgroundColor: '#f8f9fa', color: '#333', fontSize: '11px', width: '30%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',width:'60%' }}>Date/Time</th>
+            <th style={{ backgroundColor: '#f8f9fa', color: '#333', fontSize: '11px', width: '70%', wordWrap: 'break-word' }}>Change Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {changeHistory[selectedRoom?.room_id]?.length > 0 ? (
+            changeHistory[selectedRoom.room_id].map((change, index) => (
+              <tr key={index}>
+                <td style={{ fontSize: '10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',  }}>
+                  {formatTimestamp(change.timestamp)} {/* Format the timestamp */}
+                </td>
+                <td style={{ fontSize: '10px', wordWrap: 'break-word' }}>{change.details}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2" style={{ textAlign: 'center' }}>No changes recorded for this room.</td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </div>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowChangeHistoryModal(false)}>
+      Close
+    </Button>
+  </Modal.Footer>
+</Modal>
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             {/* Add Rooms Modal */}
             <Modal show={showAddRoomsModal} onHide={() => setShowAddRoomsModal(false)}>
               <Modal.Header closeButton>
@@ -665,7 +867,7 @@ const BuildingDetail = () => {
                         <option value="Nature View">Nature View</option>
                         <option value="Amenity View">Amenity View</option>
                       </select>
-                    </div>
+                    </div>  
                   </div>
                 )}
               </Modal.Body>

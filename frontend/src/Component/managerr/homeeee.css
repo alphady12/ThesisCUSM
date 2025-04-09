@@ -12,6 +12,7 @@ body {
     width: 100%; /* Ensure carousel occupies the full width of the container */
     overflow: hidden; /* Prevent scrolling inside carousel */
     position: relative; /* Keep carousel inside container */
+  
   }
   
   .carousel-item {

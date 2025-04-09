@@ -1,20 +1,25 @@
 .container {
-    margin-top: 20px;
+    margin-top: 100px;
   }
  
-  h1 {
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 20px;
+  .text-centers {
+    white-space: nowrap; /* Keeps text on one line */
+    margin-left: -279px;
+    margin-bottom: 120px;
+    font-size: 11px;
   }
+  
  
-  .search-bar {
+  .search-bars {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-  }
- 
+    margin-left: -189px;
+    width: 100%; /* Reduces overall width */
+    height: 5px; /* Adjust height */
+    font-weight: bold;
+}
   .search-group {
     flex-grow: 1;
     margin-right: 10px;
@@ -44,36 +49,47 @@
     transition: background-color 0.3s;
     margin-bottom: 13px;
   }
+
+  .text-center {
+   margin-top: -90px;
+    font-size: 32px;
+  }
  
   .add-btn:hover {
     background-color: #b52e30;
   }
  
-  .user-table {
+  .agent-table {
     border-radius: 5px;
     overflow: hidden;
-    margin-top: 20px;
+    margin-top: 100px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: scale(0.5);
+    width: 2380px;
   }
  
-  .user-table th {
+  .agent-table th {
     background-color: #ca3433;
     color: white;
     padding: 12px;
     text-align: center;
+    height: -5px;
+  
   }
  
-  .user-table tbody tr:nth-child(even) {
+  .agent-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
   }
  
-  .user-table tbody tr:hover {
+  .agent-table tbody tr:hover {
     background-color: #f1f1f1;
   }
  
-  .user-table td {
-    vertical-align: middle;
+  .agent-table td {
+    vertical-align: bottom;
     padding: 12px;
+   height: -1px;
+   font-size: 28px;
   }
  
   .edit-btn {
@@ -152,3 +168,5 @@
     right: 10px;
     transform: translateY(-50%);
   }
+
+  

@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 import { Container, Nav } from "react-bootstrap";
 import { Link, Routes, Route } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,12 +13,16 @@ import { faHome, faAddressCard, faBuilding, faCalendarAlt, faSignOutAlt } from '
 import './mreservation.css'; 
 
 const Reservations = () => {
+
+   const navigate = useNavigate();
   const [reservations, setReservations] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("All");
   const [agents, setAgents] = useState([]);
   const [loadingIds, setLoadingIds] = useState(new Set()); // Use a Set to track loading states
 
+
+  
   useEffect(() => {
     fetchReservations();
     fetchAgents();
@@ -91,6 +96,11 @@ const Reservations = () => {
     setSearchTerm(e.target.value);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/Managerlogin');
+};
+
   const getAgentName = (agentId) => {
     const agent = agents.find((agent) => agent.user_id === agentId);
     return agent ? agent.name : "Unknown Agent";
@@ -137,44 +147,44 @@ const Reservations = () => {
             <FontAwesomeIcon icon={faHome} style={{ fontSize: '20px', marginRight: '10px' }} />
             Home
           </Link>
-          <Link to="/manager/agentusers" style={linkStyle}>
+          <Link to="/manager/agents" style={linkStyle}>
             <FontAwesomeIcon icon={faAddressCard} style={{ fontSize: '20px', marginRight: '10px' }} />
             Agents
           </Link>
           <Link to="/manager/bldg" style={linkStyle}>
             <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
-            Building
+            Availability
           </Link>
           <Link to="/manager/Reservations" style={linkStyle}>
             <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
             Reservations
           </Link>
-          <Nav.Link
-            onClick={() => console.log("Logout")} // Implement your logout logic here
-            style={{
-              color: '#fff',
-              marginTop: '90px',
-              textAlign: 'center',
-              padding: '10px',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
-            Logout
-          </Nav.Link>
+             <div
+                     onClick={handleLogout}
+                     style={{
+                       color: '#fff',
+                                             marginTop: '90px',
+                                             textAlign: 'center',
+                                             padding: '10px',
+                                             width: '100%',
+                                             display: 'flex',
+                                             alignItems: 'center'
+                     }}
+                   >
+                     <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
+                     Logout
+                   </div>
         </Nav>
       </div>
 
-      <div className="content" style={{ flex: 1, position: 'relative', marginLeft: '180px' }}>
+      <div className="content" style={{ flex: 1, position: 'center', marginLeft: '190px', marginTop: '-50px' }}>
         <Container fluid>
           <div className="mcontainer">
             <div className="row justify-content-center">
               <div className="col-md-8">
-                <h1 className="text-center mt-4">Reservation Details</h1>
+              <h1 className="text-center" style={{ fontSize: "21px", fontWeight: "light", marginTop:'-70px',marginLeft:'-270px' }}>Reservation</h1>
 
-                <div className="search-bar mb-3">
+              <div className="search-bar mb-3" style={{ marginTop: "20px", marginLeft:'-270px' }}>
                   <InputGroup>
                     <FormControl
                       type="search"
@@ -185,31 +195,33 @@ const Reservations = () => {
                   </InputGroup>
                 </div>
 
-                <div className="d-flex justify-content-start mb-3">
-                  {["All", "Pending", "Reserved", "Cancelled"].map((status) => (
-                    <Button
-                      key={status}
-                      variant={filter === status ? "primary" : "outline-primary"}
-                      className="me-2"
-                      onClick={() => setFilter(status)}
-                    >
-                      {status}
-                    </Button>
-                  ))}
-                </div>
+                <div className="d-flex justify-content-start mt-2" style={{ marginLeft: '-260px' }}>
+  {["All", "Pending", "Reserved", "Cancelled"].map((status) => (
+    <Button
+      key={status}
+      variant={filter === status ? "primary" : "outline-primary"}
+      className="me-2 btn-sm"
+      style={{ fontSize: '12px', padding: '5px 10px' }}
+      onClick={() => setFilter(status)}
+    >
+      {status}
+    </Button>
+  ))}
+</div>
 
-                <div className="table-containers"> {/* Add a container for the table */}
-                  <Table striped bordered hover className="reservation-table mt-2">
+<div className="managertable-containers" style={{ marginBottom: "-120px", marginLeft: "-198px",marginTop:'-20px' }}>{/* Add a container for the table */}
+<Table striped bordered hover className="managerreservation-table " style={{ width: "1999px",marginLeft:'-414px',marginTop:'20px' }}>
+
                     <thead>
                       <tr>
-                      <th style={{ width: '122px' }}>Agent Name</th>
-                       <th style={{ width: '140px' }}> Name</th>
-                        <th style={{ width: '140px' }}>Phone Number</th>
-                         <th style={{ width: '170px' }}>Email</th>
-                          <th style={{ width: '110px' }}>Room Number</th>
-                          <th style={{ width: '110px' }}>Room Type</th>
-                           <th style={{ width: '100px' }}>Status</th>
-                           <th style={{ width: '118px' }}>Action</th>
+                      <th >Agent Name</th>
+                       <th > Name</th>
+                        <th >Phone Number</th>
+                         <th >Email</th>
+                          <th >Room Number</th>
+                          <th >Room Type</th>
+                           <th >Status</th>
+                           <th >Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -223,14 +235,17 @@ const Reservations = () => {
                           <td>{reservation.Room_Type}</td>
                           <td>{reservation.status}</td>
                           <td>
-                            <Button
-                              variant="success"
-                              onClick={() => updateReservationStatus(reservation.reservation_id, "Reserved")}
-                              style={{ width: "100px" }}
-                              disabled={loadingIds.has(reservation.reservation_id) || reservation.status === "Cancelled"}
-                            >
-                              Confirm
-                            </Button>{" "}
+                           
+                          {reservation.status === "Pending" && (
+  <Button
+    variant="success"
+    onClick={() => updateReservationStatus(reservation.reservation_id, "Reserved")}
+    style={{ width: "100px" }}
+    disabled={loadingIds.has(reservation.reservation_id)}
+  >
+    Confirm
+  </Button>
+)}
                             <Button
                               variant="danger"
                               onClick={() => updateReservationStatus(reservation.reservation_id, "Cancelled")}

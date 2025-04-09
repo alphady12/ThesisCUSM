@@ -61,7 +61,7 @@ const CustomerDashboard = () => {
                     <Link to="/dashboard2/rooms" style={location.pathname === '/dashboard2/rooms' ? activeLinkStyle : linkStyle}>Rooms</Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Link to="/dashboard2/reservation" style={location.pathname === '/dashboard2/reservation' ? activeLinkStyle : linkStyle}>Reservation</Link>
+                    <Link to="/dashboard2/reservation" style={location.pathname === '/dashboard2/reservation' ? activeLinkStyle : linkStyle}>Availability</Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Link to="/dashboard2/contact" style={location.pathname === '/dashboard2/contact' ? activeLinkStyle : linkStyle}>Contact Us</Link>

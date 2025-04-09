@@ -44,7 +44,9 @@ const AboutUs = () => {
             <header style={{ backgroundImage: `url(${Uma1Image})` }}>
                 <div className="header-overlay"></div>
                 <div className="header-content">
-                    <h1>Your Ideal Modern City Home</h1>
+                <h2 style={{ fontSize: '30px', textAlign: 'center',color:'black',fontWeight:'light-bold' }}>
+  Your Ideal Modern City Home
+</h2>
                     <p>Savor independence and pursue your passions at Futura Monte, a smart-value, mid-rise community featuring spacious units, breathable open spaces, and refreshing amenities in a prime location in Naga City. Crafted with care by Filinvest, it is a modern city home where you can enjoy your bright future.</p>
                     <p>A Well-Planned Community: With four mid-rise, modern minimalist buildings set amid open spaces and a secure environment, Futura Monte is the ideal community for settling down, achieving your dreams, and growing your family. It is designed with your health in mind as 60% of the total property is dedicated to breathable open spaces and amenities.</p>
                 </div>

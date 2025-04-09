@@ -33,8 +33,12 @@ const Reservations = () => {
     }
   };
 
+
+
+
   useEffect(() => {
     fetchBuildingData();
+    
   }, []);
 
   const getRoomTypeColor = (type) => {

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Container, Row, Col, Carousel, Nav, Navbar } from 'react-bootstrap';
 import { FaBuilding, FaRegCalendarAlt } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faAddressCard, faCalendarAlt, faSignOutAlt, faEnvelope, faUser, faBuilding } from '@fortawesome/free-solid-svg-icons';
-
+import { faHome, faAddressCard, faCalendarAlt, faSignOutAlt, faEnvelope, faUser, faBuilding,faTable } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import homeImage1 from './home.jpg';
 import homeImage2 from './home2.jpg';
 import homeImage3 from './home3.jpg';
@@ -23,6 +23,7 @@ import fsImage12 from './fs12.jpg';
 import './homeeee.css';
 
 const Home = () => {
+     const navigate = useNavigate();
     const [currentSet, setCurrentSet] = useState(1);
     const carouselRef = useRef(null);
 
@@ -51,9 +52,9 @@ const Home = () => {
     }, [currentSet, duplicatedImages.length]);
 
     const handleLogout = () => {
-        // Logout logic
+        localStorage.removeItem('token');
+        navigate('/');
     };
-
    
    
    
@@ -139,14 +140,16 @@ const Home = () => {
                                 <FontAwesomeIcon icon={faAddressCard} style={{ fontSize: '20px', marginRight: '10px' }} />
                                 Users
                             </Link>
+                            <Link to="/dashboard/availability" style={linkStyle}>
+                                                      <FontAwesomeIcon icon={faTable} style={{ fontSize: '20px', marginRight: '10px' }} />
+                                                      Availability
+                                                  </Link>
                             <Link to="/dashboard/bldg" style={linkStyle}>
                                 <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
                                 Building
                             </Link>
-                            <Link to="/dashboard/reservations" style={linkStyle}>
-                                <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
-                                Reservations
-                            </Link>
+                         
+                           
                             <Nav.Link
                                 onClick={handleLogout}
                                 style={{
@@ -157,9 +160,10 @@ const Home = () => {
                                     width: '100%',
                                     display: 'flex',
                                     alignItems: 'center'
+                                    
                                 }}
                             >
-                                <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
+                                <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '20px', marginRight: '10px'}} />
                                 Logout
                             </Nav.Link>
                         </Nav>
@@ -169,7 +173,7 @@ const Home = () => {
                     <Container fluid style={{ padding: '0' }}>
   <Row>
     <Col>
-      <Carousel style={{ width: '1172px', marginLeft: '80px', marginTop: '-51px', }}> {/* Increase width here */}
+      <Carousel style={{ width: '1190px', marginLeft: '89px', marginTop: '-98px', }}> {/* Increase width here */}
         {[homeImage1, homeImage2, homeImage3].map((image, index) => (
           <Carousel.Item key={index}>
             <img
@@ -193,9 +197,7 @@ const Home = () => {
                             <Link to="/dashboard2/rooms" className="btn btn-lg" style={buttonStyle}>
                                 <FaBuilding /> Explore Condos
                             </Link>
-                            <Link to="/dashboard2/reservation" className="btn btn-lg" style={buttonStyle}>
-                                <FaRegCalendarAlt /> Make Reservation
-                            </Link>
+                            
                         </Col>
                     </Row>
                 </Container>

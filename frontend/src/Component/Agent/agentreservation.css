@@ -1,24 +1,34 @@
-.scontainer {
-    max-height: 99vh; /* Set a maximum height for the container */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    padding: 20px; /* Optional: Add some padding */
-    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
-    border-radius: 5px; /* Optional: Add rounded corners */
-    background-color: #f8f9fa; /* Optional: Set a background color */
-    width: 1260px;
-    margin-top: -5px;
-    margin-left: 189px;
-  }
-  
-  
-  
+
   .sscrollable-table-container {
     max-height: 60vh; /* Set a maximum height for the table container */
-    margin-left: -155px;
-  
+    margin-left: -230px;
+    margin-right: -200px;
   }
   
+  
+
+  .ahentereservation-table {
+    margin-bottom: 200px; /* Adjust as needed */
+    margin-left: 1020px; /* Adjust as needed */
+    transform: scale(0.6);
+  }
+  
+  .table-containers {
+    max-height: 60vh; /* Set a maximum height for the table container */
+    margin-left: -260px;
+    margin-right: -200px;
+    overflow-x: auto; /* Enable horizontal scrolling when content exceeds width */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Set scrollbar width to thin */
+    scrollbar-color: transparent transparent; /* Set scrollbar color to transparent */
+  }
+
+
+
+
+
+
+
   .reservation-table {
     width: 100%; /* Make the table take the full width of the container */
     table-layout: fixed; /* Use fixed layout to respect column widths */
@@ -89,3 +99,17 @@
   .reservation-table td:nth-child(10) {
     width: 146px;
   }
+
+  
+.ahente-container {
+  margin: -20px -21px -120px -21px; /* top, right, bottom, left */
+}
+
+.ahente-reservation-table {
+  width: 100%; /* Use percentage for responsive design */
+  max-width: 1999px; /* Set a maximum width if needed */
+  margin: 20px auto 0 auto; /* top, right, bottom, left */
+  position: fixed; /* Fixes the table's position */
+  left: 50%; /* Centers the table horizontally */
+  transform: translateX(-50%); /* Adjusts positioning after centering */
+}

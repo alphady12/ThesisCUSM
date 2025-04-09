@@ -1,5 +1,5 @@
 .reservation-form-container {
-    max-width: 500px;
+    max-width: 300px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -8,7 +8,17 @@
   }
   
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    gap: 2px;
+ 
+  
+  
+   
+  }
+
+  .form-control {
+
+    width:fit-content;
   }
   
   label {
@@ -18,11 +28,11 @@
   input[type="text"],
   input[type="email"],
   select {
-    width: 100%;
-    padding: 8px;
+    width: 90%;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 14px;
   }
   
   select {
@@ -61,6 +71,7 @@
   .reservation-table td {
   max-width: 400px;  /* Optional: Set a max width for each cell */
   word-break: break-word; /* Break long words to prevent overflow */
+  
   }
   
   
@@ -222,3 +233,48 @@
     margin-left: 220px; /* Offset the main content to make space for the sidebar */
     padding: 20px;
   }
+
+  .building-header {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+  }
+
+  .scrollable-table-container {
+    max-height: 400px; /* Adjust based on your preferred table height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    display: block;
+  }
+  
+  .scrollable-table-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  /* For Firefox */
+  .scrollable-table-container {
+    scrollbar-width: none; /* Hides the scrollbar */
+    -ms-overflow-style: none; /* For Internet Explorer */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+
+
+  .custom-modal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensures it takes full viewport height */
+  }
+
+ 

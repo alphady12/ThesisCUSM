@@ -1,10 +1,7 @@
-.availability-container {
+.scrollable-table-container {
   max-height: 400px; /* Adjust based on your preferred table height */
-  transform: scale(0.6);
+  overflow-y: auto; /* Enable vertical scrolling */
   display: block;
-  width: 2000px
-  
-  
 }
 
 .scrollable-table-container::-webkit-scrollbar {
@@ -29,6 +26,11 @@ th, td {
   border: 1px solid #ddd;
 }
 
-.building-header{
-  font-size: 20px;
+.manageredx-container {
+  max-height: 400px; /* Adjust based on your preferred table height */
+  transform: scale(0.6);
+  display: block;
+  width: 2000px
+  
+  
 }

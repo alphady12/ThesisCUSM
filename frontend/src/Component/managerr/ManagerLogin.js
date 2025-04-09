@@ -10,7 +10,7 @@ import './Login.css';
 import loginImage from './Dashboard.png';
 
 
-const Login = () => {
+const ManagerLogin = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ const Login = () => {
                 password,
             });
             localStorage.setItem("token", JSON.stringify(response.data.token));
-            navigate('/manager/agentusers');
+            navigate('/manager/agents');
         } catch (error) {
             setError('Login Failed. Please check your credentials and try again.');
             console.error('Login Failed', error);
@@ -90,4 +90,4 @@ const Login = () => {
 };
 
 
-export default Login;
+export default ManagerLogin;

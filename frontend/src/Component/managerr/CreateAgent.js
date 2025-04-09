@@ -9,7 +9,7 @@ import { FaTrash } from 'react-icons/fa';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import './User.css';
+import './CreateAgent.css';
 
 
 const CreateAgent = () => {
@@ -141,35 +141,41 @@ const CreateAgent = () => {
 
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-10">
-          <h1 className="text-center">Agent Management</h1>
-          <div className="search-bar">
-            <InputGroup className="search-group">
-              <FormControl
-                type="search"
-                placeholder="Search by Name"
-                className="search-input"
-                value={searchTerm}
-                onChange={handleSearch}
-              />
-            </InputGroup>
-            <Button
-              variant="primary"
-              onClick={() => setShowAddModal(true)}
-              className="add-btn"
-            >
-              <PlusCircle />
-            </Button>
+    <div className="container move-upds" style={{ marginTop: '-180px' }}>
+    <div className="row justify-content-center">
+      <div className="col-md-10">
+        <h1 className="text-centerss" style={{ fontSize: '15px', textAlign: 'center', marginTop: '-90px',marginLeft:'-180px ',whiteSpace: 'nowrap' }}>
+          Agent Management
+        </h1>
+  
+        <div className="search-bars" style={{ height: '30px', padding: '5px 10px', lineHeight: 'normal', marginTop: '20px' }}>
+          <InputGroup className="search-group">
+            <FormControl
+              type="search"
+              placeholder="Search by Name"
+              className="search-input"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </InputGroup>
+          <Button
+            variant="primary"
+            onClick={() => setShowAddModal(true)}
+            className="add-btn"
+          >
+            <PlusCircle />
+          </Button>
           </div>
-          <Table striped bordered hover className="user-table mt-4">
+      
+
+          <div className="agent-table-container" style={{ width: '200%', marginLeft:'-316px' }}></div>
+          <Table className="agent-table" style={{ marginTop: '-30px',marginLeft:'-782px',maxWidth:'394%' }}>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
+                <th style={{ position: 'sticky', top: 0, zIndex: 10, padding: '15px', width: '450px', marginRight: '500px', fontSize:'25px'  }} >Name</th>
+                <th style={{ position: 'sticky', top: 0,  zIndex: 10, padding: '15px', width: '250px', fontSize:'25px' }} >Email</th>
+                <th style={{ position: 'sticky', top: 0,  zIndex: 10, padding: '15px', width: '150px',fontSize:'25px'  }} >Role</th>
+                <th style={{ position: 'sticky', top: 0,  zIndex: 10, padding: '15px', width: '170px', fontSize:'25px' }} >Actions</th>
               </tr>
             </thead>
             <tbody>

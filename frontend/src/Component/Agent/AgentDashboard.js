@@ -102,7 +102,7 @@ const AgentDashboard = () => {
                         </Link>
                         <Link to="/agent/bldg" style={linkStyle}>
                             <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
-                            Building
+                            Availability
                         </Link>
                         <Link to="/agent/reservations" style={linkStyle}>
                             <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />

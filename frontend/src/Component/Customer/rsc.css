@@ -138,6 +138,7 @@
     background-color: #f9f9f9;
   }
   
+
   
   .color-legend h4 {
     font-size: 22px;
@@ -171,4 +172,22 @@
     font-size: 16px;
     color: #333;
   }
+
+  .customer-container {
+    max-height: 400px; /* Adjust based on your preferred table height */
+    transform: scale(0.6);
+    display: block;
+    width: 3500px;
+
+    
+    
+  }
+  .sidebar {
+    height: 100vh;
+    overflow-y: auto;
+  }
   
+  html, body {
+    height: 100%;
+    overflow: auto;
+  }

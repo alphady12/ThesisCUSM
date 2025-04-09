@@ -8,6 +8,7 @@ const Contact = () => {
     const [message, setMessage] = useState('');
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [showLocationImage, setShowLocationImage] = useState(false);
+    const [buttonHovered, setButtonHovered] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -40,9 +41,6 @@ const Contact = () => {
     const handleButtonLeave = () => {
         setButtonHovered(false);
     };
-
-
-    const [buttonHovered, setButtonHovered] = useState(false);
 
 
     const navbarHeight = '75px';
@@ -81,65 +79,67 @@ const Contact = () => {
 
     return (
         <div className="contact" style={contentStyle}>
-            <div style={{ ...styles.container, fontFamily: 'Verdana, sans-serif' }}>
-                <div style={styles.wrapper}>
-                    <div style={styles.formSection}>
-                        <h1 style={styles.header}>Get in Touch!</h1>
-                        <p style={styles.subHeader}>
-                            Have any questions or inquiries? Contact us using the form below:
-                        </p>
-                        {message && <p style={styles.message}>{message}</p>}
-                        <form onSubmit={handleSubmit} style={styles.form}>
-                            <label style={styles.label}>
-                                <span style={styles.labelText}>Name:</span>
-                                <input
-                                    type="text"
-                                    value={formData.name}
-                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                    style={styles.input}
-                                    placeholder="Enter your name"
-                                />
-                            </label>
-                            <label style={styles.label}>
-                                <span style={styles.labelText}>Email:</span>
-                                <input
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                    style={styles.input}
-                                    placeholder="Enter your email"
-                                />
-                            </label>
-                            <label style={styles.label}>
-                                <span style={styles.labelText}>Message:</span>
-                                <textarea
-                                    value={formData.message}
-                                    onChange={e => setFormData({ ...formData, message: e.target.value })}
-                                    style={styles.textarea}
-                                    placeholder="Your message here..."
-                                />
-                            </label>
-                            <button
-                                type="submit"
-                                style={buttonStyle}
-                                onMouseEnter={handleButtonHover}
-                                onMouseLeave={handleButtonLeave}
-                            >
-                                Submit
-                            </button>
-                        </form>
-                    </div>
+        <div style={{ ...styles.containers, fontFamily: 'Verdana, sans-serif' }}>
+            <div style={styles.wrapper}>
+                {/* Form Section */}
+                <div style={styles.formSection}>
+                    <h1 style={styles.header}>Let's Connect!</h1>
+                    <p style={styles.subHeader}>Feel free to reach out with any questions or inquiries!</p>
+                    {message && <p style={styles.message}>{message}</p>}
+                    <form onSubmit={handleSubmit} style={styles.form}>
+                        <label style={styles.label}>
+                            <span style={styles.labelText}>Name:</span>
+                            <input
+                                type="text"
+                                value={formData.name}
+                                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                style={styles.input}
+                                placeholder="Enter your name"
+                                required
+                            />
+                        </label>
+                        <label style={styles.label}>
+                            <span style={styles.labelText}>Email:</span>
+                            <input
+                                type="email"
+                                value={formData.email}
+                                onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                style={styles.input}
+                                placeholder="Enter your email"
+                                required
+                            />
+                        </label>
+                        <label style={styles.label}>
+                            <span style={styles.labelText}>Message:</span>
+                            <textarea
+                                value={formData.message}
+                                onChange={e => setFormData({ ...formData, message: e.target.value })}
+                                style={styles.textarea}
+                                placeholder="Your message here..."
+                                required
+                            />
+                        </label>
+                        <button
+                            type="submit"
+                            style={buttonStyle}
+                            onMouseEnter={handleButtonHover}
+                            onMouseLeave={handleButtonLeave}
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+
+                    {/* Contact Info Section */}
                     <div style={{ ...styles.formSection, ...styles.contactInfoSection }}>
-                        <div style={styles.socialContainer}>
-                            <p style={styles.contactInfo}><strong>Contact Information</strong></p>
-                            <p style={styles.infoText}>
-                                Phone: <strong>Insert Phone Number Here</strong>
-                            </p>
-                            <p style={styles.infoText}>
-                                Hours: Monday-Friday 08:00 am - 05:00 pm
-                            </p>
-                            <p style={styles.followUs}><strong>Follow Us:</strong></p>
-                            <div style={styles.socialIcons}>
+                        <p style={styles.contactInfo}><strong>Contact Info</strong></p>
+                        <p style={styles.infoText}>Phone: <strong>Insert Phone Number Here</strong></p>
+                        <p style={styles.infoText}>Hours: Monday-Friday 08:00 am - 05:00 pm</p>
+                        <p style={styles.followUs}><strong>Follow Us:</strong></p>
+                        <div style={styles.socialIcons}>
+
+
                                 <a href="https://www.facebook.com/FuturaByFilinvest/" target="_blank" rel="noopener noreferrer" style={styles.icon}>
                                     <FontAwesomeIcon icon={faFacebook} style={{ fontSize: '36px', color: '#3b5998' }} />
                                 </a>
@@ -148,13 +148,15 @@ const Contact = () => {
                                 </a>
                                 <a href="https://www.youtube.com/c/FuturabyFilinvest" target="_blank" rel="noopener noreferrer" style={styles.icon}>
                                     <FontAwesomeIcon icon={faYoutube} style={{ fontSize: '36px', color: '#c4302b' }} />
-                                </a>
-                            </div>
+                                    </a>
                         </div>
                     </div>
                 </div>
+
+
+                {/* Location Section */}
                 <div style={styles.locationSection}>
-                    <h2 style={styles.locationHeader}>Location Details</h2>
+                    <h2 style={styles.locationHeader}><strong>Location: </strong> </h2>
                     <div style={styles.locationContainer}>
                         <img
                             src={locationImage}
@@ -162,23 +164,31 @@ const Contact = () => {
                             style={styles.locationImage}
                             onClick={openLocationImage}
                         />
-                        <p style={{ ...styles.locationText, color: '#000' }}>
-                            <strong>Location:</strong>
-                            <li>Conveniently located on Roxas Ave. in Brgy. Triangulo, near major establishments, schools, hospitals, and government offices.</li>
-                        </p>
-                        <p style={{ ...styles.locationText, color: '#000' }}><strong>Landmarks:</strong></p>
-                        <ul style={styles.landmarkList}>
-                            <li>M Plaza – 100 m</li>
-                            <li>USI Mother Seton Hospital – 100 m</li>
-                            <li>Bicol Medical Center – 600 m</li>
-                            <li>Our Lady of the Immaculate Concepcion Parish – 600 m</li>
-                            <li>S&R Naga – 950 m</li>
-                            <li>Bicol Central Station – 1.3 km</li>
-                            <li>Naga City Hall – 1.5 km</li>
-                            <li>Naga City Science High School – 1.8 km</li>
-                        </ul>
+                     
+                        {/* <p style={{ ...styles.locationText, fontWeight: 'bold', fontSize: '18px', color: '#000' }}>Location:
+
+
+                        </p> */}
+    <ul style={{ ...styles.landmarkList, paddingLeft: '20px', color: '#000', fontSize: '16px' }}>
+        <li>Conveniently located on Roxas Ave. in Brgy. Triangulo, near major establishments, schools, hospitals, and government offices.
+        </li>
+    </ul>
+    <p style={{ ...styles.locationText, fontWeight: 'bold', fontSize: '18px', color: '#000' }}>Nearby Landmarks:</p>
+    <ul style={{ ...styles.landmarkList, paddingLeft: '20px', color: '#000', fontSize: '16px' }}>
+        <li>
+            M Plaza – 100 m</li>
+        <li>USI Mother Seton Hospital – 100 m</li>
+        <li>Bicol Medical Center – 600 m</li>
+        <li>Our Lady of the Immaculate Concepcion Parish – 600 m</li>
+        <li>S&R Naga – 950 m</li>
+        <li>Bicol Central Station – 1.3 km</li>
+        <li>Naga City Hall – 1.5 km</li>
+        <li>Naga City Science High School – 1.8 km</li>
+    </ul>
                     </div>
                 </div>
+
+
                 {showLocationImage && (
                     <div style={styles.imageModal}>
                         <div style={styles.modalContent}>
@@ -187,6 +197,13 @@ const Contact = () => {
                         </div>
                     </div>
                 )}
+
+
+                {/* Embedded Google Map */}
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.5477952378975!2d123.183818!3d13.621775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3398e6f5a49b6e69%3A0x22f73e5a2eb4a6cf!2sFutura%20By%20Filinvest!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+                    width="95%" height="500" style={{border: 0}} allowFullScreen="" loading="lazy">
+                </iframe>
             </div>
         </div>
     );
@@ -194,7 +211,7 @@ const Contact = () => {
 
 
 const styles = {
-    container: {
+    containers: {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -203,200 +220,197 @@ const styles = {
         padding: '20px',
         boxSizing: 'border-box',
         backgroundColor: '#f9f9f9',
-        overflowY: 'auto',
+        width: '50%',
+        marginLeft:'200px',
+        transform: 'scale(0.8)',
+        marginTop:'-150px',
+        marginLeft:'405px'
     },
     wrapper: {
         display: 'flex',
-        maxWidth: '1200px',
-        width: '100%',
+        maxWidth: '3200px',
+        width: '280%',
         boxSizing: 'border-box',
         marginBottom: '20px',
         boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
         borderRadius: '10px',
+        overflow: 'hidden',
+        
     },
     formSection: {
         flex: '1',
-        padding: '20px',
-        boxSizing: 'border-box',
-        backgroundColor: '#fff',
-    },
-    contactInfoSection: {
-        flex: '1',
-        padding: '20px',
-        boxSizing: 'border-box',
-        backgroundColor: '#fff',
+        padding: '5px',
     },
     header: {
-        textAlign: 'center',
         fontSize: '32px',
-        color: '#333',
-        marginBottom: '20px',
+        fontWeight: 'bold',
+        color: '#CA3433',
+        marginBottom: '15px',
     },
     subHeader: {
+        fontSize: '18px',
         marginBottom: '20px',
-        fontSize: '16px',
-        textAlign: 'center',
-        color: '#666',
+        color: '#555',
     },
     message: {
-        textAlign: 'center',
-        color: '#4CAF50',
-        marginBottom: '10px',
-        fontSize: '14px',
+        fontSize: '18px',
+        color: '#28a745',
+        marginBottom: '20px',
     },
     form: {
         display: 'flex',
         flexDirection: 'column',
     },
     label: {
-        marginBottom: '10px',
-        fontSize: '14px',
-        color: '#333',
-        display: 'flex',
+        marginBottom: '15px',
     },
     labelText: {
-        width: '80px',
-        marginRight: '10px',
+        fontSize: '16px',
+        color: '#333',
+        marginBottom: '5px',
     },
     input: {
-        flex: '1',
+        width: '80%',
         padding: '10px',
+        fontSize: '16px',
         borderRadius: '5px',
         border: '1px solid #ccc',
-        fontSize: '14px',
-        marginBottom: '10px',
+        marginLeft: '10px',
     },
     textarea: {
-        flex: '1',
+        
+        width:'200%',
+        width:'760px',
         padding: '10px',
+        fontSize: '16px',
         borderRadius: '5px',
         border: '1px solid #ccc',
-        minHeight: '80px',
-        fontSize: '14px',
-        marginBottom: '10px',
+        height: '100px',
     },
     button: {
-        alignSelf: 'flex-start',
         padding: '10px 20px',
-        backgroundColor: '#CA3433',
-        color: '#fff',
         border: 'none',
         borderRadius: '5px',
+        color: '#fff',
+        fontSize: '16px',
         cursor: 'pointer',
-        fontSize: '14px',
-        marginTop: '10px',
-        fontFamily: 'Verdana, sans-serif',
         transition: 'background-color 0.3s ease',
+        width:'95%',
+        width:'300px',
+        marginLeft: '350px',
     },
-    locationSection: {
-        flex: '1',
+    contactInfoSection: {
         padding: '20px',
-        boxSizing: 'border-box',
         backgroundColor: '#fff',
-    },
-    locationHeader: {
-        textAlign: 'center',
-        fontSize: '24px',
-        color: '#333',
-        marginBottom: '20px',
-    },
-    locationContainer: {
-        border: '1px solid #ccc',
-        padding: '20px',
+        boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
         borderRadius: '10px',
-        backgroundColor: '#f0f0f0',
-        textAlign: 'center',
-    },
-    locationImage: {
-        width: '100%',
-        maxWidth: '300px',
-        borderRadius: '10px',
-        marginBottom: '10px',
-        cursor: 'pointer',
-    },
-    locationText: {
-        marginBottom: '10px',
-        fontSize: '14px',
-        color: '#000',
-        textAlign: 'left',
-    },
-    landmarkList: {
-        paddingLeft: '20px',
-        marginBottom: '10px',
-        textAlign: 'left',
-    },
-    socialContainer: {
-        textAlign: 'center',
-        border: '1px solid #ccc',
-        padding: '20px',
-        borderRadius: '10px',
-        marginTop: '90px',
-        backgroundColor: '#fff',
+        width: '80%',
+        maxWidth: '600px',
+        alignItems: 'center',
     },
     contactInfo: {
-        marginBottom: '10px',
-        fontSize: '18px',
-        color: '#333',
+        fontSize: '30px',
+        marginBottom: '30px',
+        textAlign: 'center',
+        marginTop: '85px',
+        color: '#CA3433',
+
+
     },
     infoText: {
-        marginBottom: '10px',
-        fontSize: '14px',
-        color: '#666',
-        textAlign: 'left',
+        fontSize: '16px',
+        marginBottom: '30px',
+        color: '#555',
+        marginLeft:'60px',
+       
     },
     followUs: {
-        marginBottom: '10px',
         fontSize: '18px',
-        color: '#333',
+        marginTop: '85px',
+        textAlign: 'center',
     },
+   
     socialIcons: {
         display: 'flex',
         justifyContent: 'center',
+        gap: '25px',
         marginTop: '10px',
     },
+   
     icon: {
-        marginRight: '10px',
+        textDecoration: 'none',
+        fontSize: '24px',
+        color: '#555',
+        transition: 'color 0.3s',
+    },
+   
+    iconHovered: {
+        color: '#CA3433',
+    },
+   
+    locationSection: {
+        padding: '20px',
+        backgroundColor: '#fff',
+        marginTop: '20px',
+    },
+    locationHeader: {
+        fontSize: '24px',
+        marginBottom: '15px',
+        color: '#CA3433',
+    },
+    locationContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+    },
+    locationImage: {
+        width: '50%',
+        cursor: 'pointer',
+        borderRadius: '5px',
+    },
+    locationText: {
+        fontSize: '16px',
+        color: '#555',
+    },
+    landmarkList: {
+        fontSize: '14px',
+        color: '#555',
+        listStyle: 'none',
+        paddingLeft: '0',
     },
     imageModal: {
         position: 'fixed',
-        zIndex: 1000,
-        left: 0,
-        top: 0,
+        top: '0',
+        left: '0',
         width: '100%',
-        height: '100%',
+        height: '50%',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
     },
     modalContent: {
-        backgroundColor: '#fefefe',
-        padding: '20px',
-        borderRadius: '10px',
+        position: 'relative',
         maxWidth: '90%',
         maxHeight: '90%',
-        overflow: 'auto',
-        position: 'relative',
+    },
+    closeButton: {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        fontSize: '30px',
+        color: '#fff',
+        cursor: 'pointer',
     },
     modalImage: {
         width: '100%',
         height: 'auto',
         borderRadius: '10px',
     },
-    closeButton: {
-        position: 'absolute',
-        top: '10px',
-        right: '10px',
-        fontSize: '24px',
-        color: '#333',
-        cursor: 'pointer',
-    },
+    
+   
 };
 
 
 export default Contact;
-
-
-
-
-

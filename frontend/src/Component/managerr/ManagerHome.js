@@ -136,7 +136,7 @@ const Home = () => {
                             </Link>
                             <Link to="/manager/bldg" style={linkStyle}>
                                 <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
-                                Building
+                                Availability
                             </Link>
                             <Link to="/manager/reservations" style={linkStyle}>
                                 <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
@@ -164,7 +164,7 @@ const Home = () => {
                     <Container fluid style={{ padding: '0' }}>
   <Row>
     <Col>
-      <Carousel style={{ width: '1172px', marginLeft: '80px', marginTop: '-51px', }}> {/* Increase width here */}
+      <Carousel style={{ width: '1190px', marginLeft: '85px', marginTop: '-97px', }}>  {/* Increase width here */}
         {[homeImage1, homeImage2, homeImage3].map((image, index) => (
           <Carousel.Item key={index}>
             <img
@@ -188,9 +188,7 @@ const Home = () => {
                             <Link to="/dashboard2/rooms" className="btn btn-lg" style={buttonStyle}>
                                 <FaBuilding /> Explore Condos
                             </Link>
-                            <Link to="/dashboard2/reservation" className="btn btn-lg" style={buttonStyle}>
-                                <FaRegCalendarAlt /> Make Reservation
-                            </Link>
+                            
                         </Col>
                     </Row>
                 </Container>

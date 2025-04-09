@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  
   top: 53px;
   left: 180px;
   width: calc(100% - 180px); /* Adjusted to prevent overflow */
@@ -16,13 +17,15 @@
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
+  margin-left: 80px;
+  justify-content: flex-start;
 }
 
 
 
 
 /* Add Building Button */
-.add-building-btn {
+.add-building-btns {
   background-color: #ca3433;
   color: white;
   border: none;
@@ -30,7 +33,7 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  margin-left: auto; /* Aligns the button to the right */
+  margin-left: 1000px;
 }
 
 
@@ -221,7 +224,7 @@
 
 /* Sidebar */
 .sidebar2 {
-  width: 70px;
+  width: 60px;
   margin-left: 60px;
   height: 100%;
   background: #4d4b4bd7;
@@ -301,16 +304,77 @@ button.add-floor-btn {
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   white-space: nowrap; /* Prevent text from wrapping */
-  padding: 8px; /* Add some padding for better spacing */
+  padding: 6px; /* Add some padding for better spacing */
   border: 1px solid #dee2e6; /* Add border to table cells */
 }
 
 .top-container {
   margin-bottom: 20px; /* Add some space below the top container */
+  margin-right: 20px;
+  width:100%;
 }
 
 .stepper-container {
   margin-bottom: 20px; /* Add space below the stepper */
 }
 
+.buildingd-table {
+  width: 150%;
+  max-width: none;
+  border-collapse: collapse;
+  margin: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: fixed;
+  flex-direction: column;
+}
 
+/* Adjust column widths */
+/* Wider column distribution */
+.table-header.bldg_name {
+  width: 40%;
+}
+
+.table-header.number_of_floors {
+  width: 14%;
+}
+
+.table-header.actions {
+  width: 15%;
+}
+
+.Container {
+  padding: 20px;
+width: fit-content;
+  margin-left: 180px;
+  box-sizing: border-box;
+}
+
+.top-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  padding-right: 29px;
+  border-radius: 10px;
+}
+
+.table-cell {
+  padding: 15px 10px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 968px) {
+  .buildingd-table {
+    font-size: 14px;
+  }
+  
+  .table-cell {
+    padding: 10px;
+  }
+}

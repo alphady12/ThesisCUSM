@@ -10,7 +10,7 @@ import './Login.css';
 import loginImage from './Dashboard.png';
 
 
-const Login = () => {
+const AgentLogin = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -112,4 +112,4 @@ const Login = () => {
 };
 
 
-export default Login;
+export default AgentLogin;

@@ -1,7 +1,18 @@
-.container {
-    margin-top: 20px;
-  }
-  
+.ahentereservation-table {
+  margin-bottom: 200px; /* Adjust as needed */
+  margin-left: 20px; /* Adjust as needed */
+  transform: scale(0.6);
+}
+
+.table-containers {
+  max-height: 60vh; /* Set a maximum height for the table container */
+  margin-left: -260px;
+  margin-right: -200px;
+  overflow-x: auto; /* Enable horizontal scrolling when content exceeds width */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  scrollbar-width: thin; /* Set scrollbar width to thin */
+  scrollbar-color: transparent transparent; /* Set scrollbar color to transparent */
+}
   h1 {
     color: white; 
   }

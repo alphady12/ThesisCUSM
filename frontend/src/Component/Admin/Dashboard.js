@@ -94,7 +94,11 @@ const Dashboard = () => {
                 }}>
                     <h3 style={{ marginBottom: '30px', fontSize: '20px', textAlign: 'center' }}>ADMIN</h3>
 
-
+ 
+                  
+                  
+                  
+                  
                     <Nav className="flex-column" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                         <Link to="/dashboard/home" style={linkStyle}>
                             <FontAwesomeIcon icon={faHome} style={{ fontSize: '20px', marginRight: '10px' }} />
@@ -109,10 +113,6 @@ const Dashboard = () => {
                             <FontAwesomeIcon icon={faTable} style={{ fontSize: '20px', marginRight: '10px' }} />
                             Availability
                         </Link>
-                       
-                       
-                       
-                       
                        
                         <Link to="/dashboard/bldg" style={linkStyle}>
                             <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
@@ -130,7 +130,10 @@ const Dashboard = () => {
                                 display: 'flex',
                                 alignItems: 'center'
                             }}
-                        >
+                     
+                     
+                     
+                     >
                             <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '20px', marginRight: '10px' }} />
                             Logout
                         </Nav.Link>

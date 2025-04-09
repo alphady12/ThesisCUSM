@@ -47,7 +47,7 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/');
+        navigate('/ManagerLogin');
     };
 
 
@@ -125,13 +125,13 @@ const Dashboard = () => {
                             <FontAwesomeIcon icon={faHome} style={{ fontSize: '20px', marginRight: '10px' }} />
                             Home
                         </Link>
-                        <Link to="/manager/agentusers" style={linkStyle}>
+                        <Link to="/manager/agents" style={linkStyle}>
                             <FontAwesomeIcon icon={faAddressCard} style={{ fontSize: '20px', marginRight: '10px' }} />
                             Agents
                         </Link>
                         <Link to="/manager/bldg" style={linkStyle}>
                             <FontAwesomeIcon icon={faBuilding} style={{ fontSize: '20px', marginRight: '10px' }} />
-                            Building
+                           Availability
                         </Link>
                         <Link to="/manager/Reservations" style={linkStyle}>
                             <FontAwesomeIcon icon={faCalendarAlt} style={{ fontSize: '20px', marginRight: '10px' }} />

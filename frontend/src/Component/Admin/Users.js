@@ -10,7 +10,6 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import './User.css';
-
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,14 +20,23 @@ const Users = () => {
     password: '',
   });
 
+
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedUser , setSelectedUser ] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
+
+
+
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+
+
 
   const fetchUsers = async () => {
     try {
@@ -39,13 +47,22 @@ const Users = () => {
     }
   };
 
+
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
+
+
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
@@ -64,7 +81,10 @@ const Users = () => {
     }
   };
 
-  const deleteUser  = async (userId) => {
+
+
+
+  const deleteUser = async (userId) => {
     const isConfirm = await Swal.fire({
       title: 'Are you sure?',
       text: "This action cannot be undone.",
@@ -75,11 +95,14 @@ const Users = () => {
       confirmButtonText: 'Yes, delete it!'
     });
 
+
+
+
     if (isConfirm.isConfirmed) {
       try {
         await axios.delete(`http://localhost:3001/api/users/${userId}`);
         fetchUsers();
-        Swal.fire('Deleted!', 'User  has been deleted.', 'success');
+        Swal.fire('Deleted!', 'User has been deleted.', 'success');
       } catch (error) {
         console.error('Error deleting user:', error);
         Swal.fire('Error!', 'There was a problem deleting the user.', 'error');
@@ -87,58 +110,78 @@ const Users = () => {
     }
   };
 
+
+
+
   const handleEdit = (user) => {
-    setSelectedUser (user);
+    setSelectedUser(user);
     setFormData(user);
     setShowModal(true);
   };
 
+
+
+
   const handleModalClose = () => {
     setShowModal(false);
-    setSelectedUser (null);
+    setSelectedUser(null);
   };
+
+
+
 
   const handleModalSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3001/api/users/${selectedUser .user_id}`, formData);
+      await axios.put(`http://localhost:3001/api/users/${selectedUser.user_id}`, formData);
       fetchUsers();
       setShowModal(false);
-      setSelectedUser (null);
-      Swal.fire('Updated!', 'User  has been updated.', 'success');
+      setSelectedUser(null);
+      Swal.fire('Updated!', 'User has been updated.', 'success');
     } catch (error) {
       console.error('Error updating user:', error);
       Swal.fire('Error!', 'There was a problem updating the user.', 'error');
     }
   };
 
+
+
+
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+
+
+
   return (
-    <div className="container move-up users-scroll-container">
-      <div className="row justify-content-center">
-        <div className="col-md-10">
-          <h1 className="text-center">User  Management</h1>
-          <div className="search-bar">
-            <InputGroup className="search-group">
-              <FormControl
-                type="search"
-                placeholder="Search by Name"
-                className="search-input"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </InputGroup>
-            <Button
-              variant="primary"
-              onClick={() => setShowAddModal(true)}
-              className="add-btn"
-            >
-              <PlusCircle />
-            </Button>
-          </div>
+    <div className="container move-up" style={{ marginTop: '80px' }}>
+  <div className="row justify-content-center">
+    <div className="col-md-10">
+    <h1 className="text-centerssss" style={{ fontSize: '15px', textAlign:'center', marginTop:'-270px' }}>User Management</h1>
+
+    <div className="search-bard" style={{ height: '30px', padding: '5px 10px', lineHeight: 'normal',marginTop:'-120px' }}>
+
+        <InputGroup className="search-group">
+          <FormControl
+            type="search"
+            placeholder="Search by Name"
+            className="search-input"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </InputGroup>
+        <Button
+          variant="primary"
+          onClick={() => setShowAddModal(true)}
+          className="add-btn"
+        >
+          <PlusCircle />
+        </Button>
+      </div>
+
+
+
 
           {/* Add User Modal */}
           <Modal show={showAddModal} onHide={() => setShowAddModal(false)} className="user-modal">
@@ -202,45 +245,45 @@ const Users = () => {
               </Form>
             </Modal.Body>
           </Modal>
+   
+        {/* Users Table */}
+       <div className="user-table-containers" style={{ width: '200%', marginLeft:'-18px' }}>
 
-          {/* Users Table */}
-          <Table striped bordered hover className="users-table-margin-left">
-            <thead>
-              <tr>
-              <th style={{ width: '129px', padding: '10px', backgroundColor: '#ca3433', color: 'white', fontWeight: 'bold' }}>Name</th>
-      <th style={{ width: '180px', padding: '10px', backgroundColor: '#ca3433', color: 'white', fontWeight: 'bold' }}>Email</th>
-      <th style={{ width: '90px', padding: '10px', backgroundColor: '#ca3433', color: 'white', fontWeight: 'bold' }}>Roles</th>
-      <th style={{ width: '75px', padding: '10px', backgroundColor: '#ca3433', color: 'white', fontWeight: 'bold' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map(user => (
-                <tr key={user.user_id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role_name}</td>
-                  <td>
-                    <div style={{ display: 'flex', gap: '9px' }}>
-                      <Button
-                        variant="primary"
-                        onClick={() => handleEdit(user)}
-                        className="edit-btn"
-                      >
-                        <Pencil />
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => deleteUser (user.user_id)}
-                        className="delete-btn"
-                      >
-                        <FaTrash />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+<Table className="users-table" style={{ marginTop: '-129px',marginLeft:'-750px',maxWidth:'495%',width:'2349px' }}>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredUsers.map(user => (
+        <tr key={user.user_id}>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>{user.role_name}</td>
+          <td>
+            <div style={{ display: 'center', gap: '15px' }}>
+              <Button variant="primary" onClick={() => handleEdit(user)} className="edit-btn">
+                <Pencil />
+              </Button>
+              <Button variant="danger" onClick={() => deleteUser(user.id)} className="delete-btn">
+                <FaTrash />
+              </Button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </Table>
+</div>
+
+
+
+
+
 
           {/* Edit User Modal */}
           <Modal show={showModal} onHide={handleModalClose}>
@@ -272,15 +315,12 @@ const Users = () => {
                 <Form.Group controlId="formRole">
                   <Form.Label>Role</Form.Label>
                   <Form.Control
-                    as="select"
-                    name="role_name"
-                    value={formData.role_name}
+                    type="text"
+                    name="role"
+                    value={formData.role}
                     onChange={handleChange}
                     required
-                  >
-                    <option value="Admin">Admin</option>
-                    <option value="Manager">Manager</option>
-                  </Form.Control>
+                  />
                 </Form.Group>
                 <Form.Group controlId="formPassword">
                   <Form.Label>Password</Form.Label>
@@ -308,5 +348,8 @@ const Users = () => {
     </div>
   );
 };
+
+
+
 
 export default Users;

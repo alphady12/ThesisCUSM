@@ -118,7 +118,7 @@ const Home = () => {
             >
                 <Row className="justify-content-center mt-3 w-100 m-0">
                     <Col md={12} className="text-center">
-                        <h1 style={{ fontSize: '36px', fontWeight: 'bold', color: '#CA3433', marginTop: '10px' }}>
+                        <h1 style={{ fontSize: '26px', fontWeight: 'bold', color: '#CA3433', marginTop: '99px',textAlign: 'center',marginRight:'20px' }}>
                             THE HEART OF FUTURA
                         </h1>
                         <p style={{ fontSize: '16px', color: '#333', marginTop: '5px' }}>

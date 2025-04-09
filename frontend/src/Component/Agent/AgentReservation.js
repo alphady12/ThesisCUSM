@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { InputGroup, FormControl, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import './agentreservation.css';
 
 const Reservations = () => {
+   const navigate = useNavigate();
   const [reservations, setReservations] = useState([]);
+  const [filter, setFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     Name: '',
@@ -49,9 +52,10 @@ const Reservations = () => {
   };
 
 
-  const filteredReservations = reservations.filter(reservation =>
-    reservation.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (statusFilter ? reservation.status.toLowerCase() === statusFilter : true)
+  const filteredReservations = reservations.filter(
+    (reservation) =>
+      (filter === "All" || reservation.status === filter) &&
+      reservation.Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
 
@@ -86,6 +90,13 @@ const Reservations = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Remove authentication token from local storage or session storage
+    localStorage.removeItem('authToken'); // Adjust based on your implementation
+
+    // Redirect to login page
+    navigate('/'); // Make sure the route exists in your app
+  };
 
   const formatTimestampToReadable = (timestamp) => {
     const date = new Date(timestamp);
@@ -100,89 +111,69 @@ const Reservations = () => {
 
   return (
     <div className="scontainer">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div style={{ marginTop: '50px' }}>
-            <h1 className="text-center">Reservation Details</h1>
-          </div>
-          <div className="search-bar mb-2">
-            <InputGroup className="search-group">
-              <FormControl
-                type="search"
-                placeholder="Search by Name"
-                className="search-input"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </InputGroup>
-          </div>
+       <div className="row justify-content-center">
+              <div className="col-md-8">
+              <h1 className="text-center" style={{ fontSize: "21px", fontWeight: "light", marginTop:'-20px',marginLeft:'-20px' }}>Reservation</h1>
+
+              <div className="search-bar mb-3" style={{ marginTop: "20px", marginLeft:'-20px' }}>
+                  <InputGroup>
+                    <FormControl
+                      type="search"
+                      placeholder="Search by Name"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                    />
+                  </InputGroup>
+                </div>
+
+                <div className="d-flex justify-content-start" style={{ marginTop: '-20px', marginLeft:'-21px', gap: '10px' }}>
+  {["All", "Pending", "Reserved", "Cancelled"].map((status) => (
+    <Button
+      key={status}
+      variant={filter === status ? "primary" : "outline-primary"}
+      className="me-2 btn-sm"
+      style={{ fontSize: '12px', padding: '5px 10px' }}
+      onClick={() => setFilter(status)}
+    >
+      {status}
+    </Button>
+  ))}
+</div>
 
 
-          <div className="d-flex justify-content-start mb-3">
-            <Button
-              variant="outline-primary"
-              onClick={() => setStatusFilter('')}
-              className="me-2"
-            >
-              All
-            </Button>
-            <Button
-              variant="outline-primary"
-              onClick={() => setStatusFilter('pending')}
-              className="me-2"
-            >
-              Pending
-            </Button>
-            <Button
-              variant="outline-success"
-              onClick={() => setStatusFilter('reserved')}
-              className="me-2"
-            >
-              Reserved
-            </Button>
-            <Button
-              variant="outline-danger"
-              onClick={() => setStatusFilter('cancelled')}
-              className="me-2"
-            >
-              Cancelled
-            </Button>
-          </div>
 
-
-          <div className="sscrollable-table-container">
-            <Table striped bordered hover className="reservation-table mt-2">
+<div className="ahente-containers" style={{ marginBottom: "-120px", marginLeft: "-21px", marginBottom: '140px' }}>
+            <Table striped bordered hover className="ahentereservation-table" style={{ width: "1999px", marginLeft: '-414px', marginTop: '20px' }}>
               <thead>
                 <tr>
-                  <th style={{ width: "110px", textAlign: "center" }}>Name</th>
-                  <th style={{ width: "119px", textAlign: "center" }}>Phone Number</th>
-                  <th style={{ width: "150px", textAlign: "center" }}>Email</th>
-                  <th style={{ width: "100px", textAlign: "center" }}>Room Number</th>
-                  <th style={{ width: "120px", textAlign: "center" }}>Room View</th>
-                  <th style={{ width: "110px", textAlign: "center" }}>Room Type</th>
-                  <th style={{ width: "100px", textAlign: "center" }}>Start Date</th>
-                  <th style={{ width: "100px", textAlign: "center" }}>End Date</th>
-                  <th style={{ width: "90px", textAlign: "center" }}>Status</th>
-                  <th style={{ width: "146px", textAlign: "center" }}>Action</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                  <th>Room Number</th>
+                  <th>Room View</th>
+                  <th>Room Type</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredReservations.map((reservation) => (
                   <tr key={reservation.reservation_id}>
-                    <td className="fs-6"><span>{reservation.Name}</span></td>
-                    <td className="fs-6"><span>{reservation.phone_number}</span></td>
-                    <td className="fs-6"><span>{reservation.email}</span></td>
-                    <td className="fs-6"><span>{reservation.Room_number}</span></td>
-                    <td className="fs-6"><span>{reservation.Room_View}</span></td>
-                    <td className="fs-6"><span>{reservation.Room_Type}</span></td>
-                    <td className="fs-6"><span>{formatTimestampToReadable(reservation.start_date)}</span></td>
-                    <td className="fs-6"><span>{formatTimestampToReadable(reservation.end_date)}</span></td>
-                    <td className="fs-6"><span>{reservation.status}</span></td>
+                    <td className="fs-6">{reservation.Name}</td>
+                    <td className="fs-6">{reservation.phone_number}</td>
+                    <td className="fs-6">{reservation.email}</td>
+                    <td className="fs-6">{reservation.Room_number}</td>
+                    <td className="fs-6">{reservation.Room_View}</td>
+                    <td className="fs-6">{reservation.Room_Type}</td>
+                    <td className="fs-6">{formatTimestampToReadable(reservation.start_date)}</td>
+                    <td className="fs-6">{formatTimestampToReadable(reservation.end_date)}</td>
+                    <td className="fs-6">{reservation.status}</td>
                     <td className="fs-6 text-center">
-                      {/* Edit button */}
                       <Button variant="warning" onClick={() => handleEditClick(reservation)}>
                         Edit
-                      </Button>
+                        </Button>
                     </td>
                   </tr>
                 ))}

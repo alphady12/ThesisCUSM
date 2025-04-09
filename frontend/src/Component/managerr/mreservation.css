@@ -2,13 +2,8 @@
 
 /* Reservations.css */
 .mcontainer {
-    max-height: 80vh; /* Set a maximum height for the container */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    max-height: 80vh; 
     padding: 20px; /* Optional: Add some padding */
-    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
-    border-radius: 5px; /* Optional: Add rounded corners */
-    background-color: #f8f9fa; /* Optional: Set a background color */
     width: 1120px;
     margin-top: -5px;
     margin-left: -40px;
@@ -16,7 +11,125 @@
   
   .table-containers {
     max-height: 60vh; /* Set a maximum height for the table container */
-    margin-left: -155px;
-  
+    margin-left: -260px;
+    margin-right: -200px;
+    overflow-x: auto; /* Enable horizontal scrolling when content exceeds width */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Set scrollbar width to thin */
+    scrollbar-color: transparent transparent; /* Set scrollbar color to transparent */
+}
+
+/* For webkit browsers (Chrome, Safari, etc.) */
+.table-containers::-webkit-scrollbar {
+    width: 6px; /* Make scrollbar thin */
+}
+
+.table-containers::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Make the scrollbar thumb invisible */
+}
+
+.table-containers::-webkit-scrollbar-track {
+    background-color: transparent; /* Make the scrollbar track invisible */
+}
+
+
+
+.reservation-table {
+  width: 100%; /* Ensure the table takes up the full width of the container */
+  table-layout: fixed; /* Ensures columns are evenly spaced */
+  border-collapse: collapse; /* Ensures borders between cells are merged */
+}
+
+.managerreservation-table  td {
+  text-align: left;
+  padding: 8px;
+  font-size: 18px;
+  width: 200px;
+}
+
    
+  
+
+  .mcontainer {
+    padding: 20px;
   }
+  
+  .search-bar mb-3 {
+    margin-bottom: 200px;
+  }
+  .search-bar,
+.d-flex {
+  position: relative;
+  z-index: 1;
+  
+}
+
+.d-flex {
+  margin-bottom: 10px;
+}
+
+.button-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+
+/* Sidebar Styling */
+.sidebar {
+  background: #CA3433;
+  color: white;
+  padding: 20px;
+  width: 180px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar h3 {
+  margin-bottom: 30px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.sidebar .nav-link {
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #f1f1f1;
+  color: #CA3433;
+}
+
+/* Content Styling */
+.content {
+  flex: 1;
+  position: relative;
+  margin-left: 180px;
+  margin-top: -40px;
+  padding: 20px;
+}
+
+.content .container {
+  margin-top: 56px;
+}
+
+.text-center {
+  margin-bottom: 20px;
+  font-size: 21px;
+}
+
+.managertable-containers {
+  margin-bottom: 200px; /* Adjust as needed */
+  margin-left: 20px; /* Adjust as needed */
+  transform: scale(0.6);
+}
