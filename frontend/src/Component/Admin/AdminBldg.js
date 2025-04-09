@@ -200,7 +200,6 @@ const AdminBldg = () => {
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const navigate = useNavigate();
 
-  // Fetch buildings from API
   const fetchBuildings = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/all-buildings');
@@ -279,7 +278,6 @@ const handleBuildingClick = async (building) => {
     }
   };
 
-  // Define table columns
   const columns = useMemo(
     () => [
       {
@@ -294,6 +292,10 @@ const handleBuildingClick = async (building) => {
       {
         Header: 'Number of Floors',
         accessor: 'number_of_floors',
+      },
+      {
+        Header: 'Number of Rooms', // New column for room count
+        accessor: 'room_count',
       },
       {
         Header: 'Actions',
@@ -430,28 +432,28 @@ const handleBuildingClick = async (building) => {
         </ActionContainer>
        
         <StyledTable {...getTableProps()}>
-          <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <TableHeader {...column.getHeaderProps()}>{column.render('Header')}</TableHeader>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
-              prepareRow(row);
-              return (
-                <TableRow {...row.getRowProps()}>
-                  {row.cells.map(cell => (
-                    <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
-                  ))}
-                </TableRow>
-              );
-            })}
-          </tbody>
-        </StyledTable>
+  <thead>
+    {headerGroups.map(headerGroup => (
+      <tr {...headerGroup.getHeaderGroupProps()}>
+        {headerGroup.headers.map(column => (
+          <TableHeader {...column.getHeaderProps()}>{column.render('Header')}</TableHeader>
+        ))}
+      </tr>
+    ))}
+  </thead>
+  <tbody {...getTableBodyProps()}>
+    {rows.map(row => {
+      prepareRow(row);
+      return (
+        <TableRow {...row.getRowProps()}>
+          {row.cells.map(cell => (
+            <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
+          ))}
+        </TableRow>
+      );
+    })}
+  </tbody>
+</StyledTable>
       </TableContainers>
 
     </Container>

@@ -246,14 +246,14 @@ const Reservations = () => {
     Confirm
   </Button>
 )}
-                            <Button
-                              variant="danger"
-                              onClick={() => updateReservationStatus(reservation.reservation_id, "Cancelled")}
-                              style={{ width: "100px" }}
-                              disabled={loadingIds.has(reservation.reservation_id) || reservation.status === "Cancelled"}
-                            >
-                              Cancel
-                            </Button>
+                        <Button
+    variant="danger"
+    onClick={() => updateReservationStatus(reservation.reservation_id, "Cancelled")}
+    style={{ width: "100px" }}
+    disabled={loadingIds.has(reservation.reservation_id)} // Removed the condition for "Cancelled"
+  >
+    Cancel
+  </Button>
                           </td>
                         </tr>
                       ))}

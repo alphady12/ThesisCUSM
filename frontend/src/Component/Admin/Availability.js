@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faBuilding, faCalendarAlt, faSignOutAlt, faAddressCard, faTable } from '@fortawesome/free-solid-svg-icons';
 import './Availability.css';
-
+import oneBrImage from './1br.jpeg'; // Corrected path
+import twoBrImage from './2br.jpeg'; // Corrected path
+import studioImage from './studio.jpeg'; // Corrected path
 const Reservations = () => {
   const [buildings, setBuildings] = useState([]);
    const [selectedBuilding, setSelectedBuilding] = useState('');
@@ -121,6 +123,22 @@ const Reservations = () => {
         return 'gray';
     }
   };
+
+
+  const getRoomImage = (roomType) => {
+    switch (roomType) {
+      case '1Br':
+        return oneBrImage;
+      case '2Br':
+        return twoBrImage;
+      case 'Studio':
+        return studioImage;
+      default:
+        return null; // or a default image
+    }
+  };
+
+
 
   const handleCloseReservationModal = () => {
     setShowReservationModal(false);
@@ -354,87 +372,87 @@ const Reservations = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Array.isArray(rooms[buildings.find(b => b.bldg_name === selectedBuilding)?.bldg_id]) ? (
-                    rooms[buildings.find(b => b.bldg_name === selectedBuilding)?.bldg_id].map((floor) => (
-                      <tr key={floor.floor_id}>
-                        <td>{floor.floor_number}</td>
-                        <td>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: '50px' }}>
-                            {floor.rooms.length ? (
-                              [...floor.rooms] // Create a new sorted array
-                                .sort((a, b) => a.room_number - b.room_number) // Sort in ascending order
-                                .map((room) => {
-                                  const isReserved = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Reserved');
-                                  const isPending = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Pending');
-                                  return (
-                                    <div
-                                      key={room.room_id}
-                                      style={{
-                                        border: '1px solid #ccc',
-                                        padding: '10px',
-                                        textAlign: 'center',
-                                        position: 'relative',
-                                        cursor: room.RoomType ? 'pointer' : 'not-allowed',
-                                        backgroundColor: isReserved ? 'gray' : room.RoomType ? 'white' : '#f0f0f0',
-                                        borderRadius: '8px',
-                                        boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        justifyContent: 'center',
-                                        gap: '20px',
-                                        alignItems: 'center',
-                                        width: '125px',
-                                        height: '81px',
-                                        fontWeight:'bold',
-                                        overflow: 'hidden',
-                                        fontSize: '16px',
-                                      }}
-                                      onClick={() => {
-                                        if (!isReserved && room.RoomType) {
-                                          handleRoomClick(room, floor.floor_number);
-                                        }
-                                      }}
-                                    >
-                                      {isPending && (
-                                        <div style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>
-                                          Pending
-                                        </div>
-                                      )}
-                                      <div
-                                        style={{
-                                          width: '12px',
-                                          height: '12px',
-                                          borderRadius: '50%',
-                                          backgroundColor: getRoomTypeColor(room.RoomType, room.status, room.room_number),
-                                          position: 'absolute',
-                                          top: '5px',
-                                          right: '5px',
-                                        }}
-                                      />
-                                      {isReserved && (
-                                        <div style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>
-                                          Reserved
-                                        </div>
-                                      )}
-                                      <span
-                                        style={{
-                                          wordWrap: 'break-word',
-                                          whiteSpace: 'nowrap',
-                                          overflow: 'break-word',
-                                          maxWidth: '70px',
-                                          fontSize: '14px',
-                                          textAlign: 'center',
-                                        }}
-                                      >
-                                        <p>{room.room_number}</p>
-                                        <p>{room.view}</p>
-                                      </span>
-                                      {!room.RoomType && (
-                                        <span style={{ fontSize: '10px', color: 'red' }}>
-                                          Not Assigned
-                                        </span>
-                                      )}
-                                    </div>
+                {Array.isArray(rooms[buildings.find(b => b.bldg_name === selectedBuilding)?.bldg_id]) ? (
+                          rooms[buildings.find(b => b.bldg_name === selectedBuilding)?.bldg_id].map((floor) => (
+                            <tr key={floor.floor_id}>
+                              <td>{floor.floor_number}</td>
+                              <td>
+                              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: '50px' }}>
+  {floor.rooms.length > 0 ? (
+    [...floor.rooms] // Create a new sorted array
+      .sort((a, b) => a.room_number - b.room_number) // Sort in ascending order
+      .map((room) => {
+        const isReserved = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Reserved');
+        const isPending = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Pending');
+        return (
+          <div
+            key={room.room_id}
+            style={{
+              border: '1px solid #ccc',
+              fontWeight: 'bold',
+              fontSize: '20px',
+              padding: '10px',
+              textAlign: 'center',
+              position: 'relative',
+              cursor: room.RoomType ? 'pointer' : 'not-allowed',
+              backgroundColor: isReserved ? 'gray' : room.RoomType ? 'white' : '#f0f0f0',
+              borderRadius: '8px',
+              boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: '19px',
+              alignItems: 'center',
+              width: '125px',
+              height: '80px',
+              overflow: 'hidden',
+            }}
+            onClick={() => {
+              if (!isReserved && room.RoomType) {
+                handleRoomClick(room, floor.floor_number);
+              }
+            }}
+          >
+            {isPending && (
+              <div style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold', position: 'absolute', top: '5px', left: '5px', zIndex: 1 }}>
+                Pending
+              </div>
+            )}
+            <div
+              style={{
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                backgroundColor: getRoomTypeColor(room.RoomType, room.status, room.room_number),
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+              }}
+            />
+            {isReserved && (
+              <div style={{ color: 'white', fontSize: '13px', fontWeight: 'bold', position: 'absolute', bottom: '5px', left: '5px', zIndex: 1, color:'red' }}>
+                Reserved
+              </div>
+            )}
+            <span
+              style={{
+                wordWrap: 'break-word',
+                whiteSpace: 'nowrap',
+                overflow: 'break-word',
+                maxWidth: '70px',
+                fontSize: '14px',
+                textAlign: 'center',
+              }}
+            >
+              <p>{room.room_number}</p>
+              <p>{room.view}</p>
+            </span>
+            {!room.RoomType && (
+              <span style={{ fontSize: '10px', color: 'red' }}>
+                Not Assigned
+              </span>
+            )}
+          </div>
                                   );
                                 })
                             ) : (
@@ -460,7 +478,7 @@ const Reservations = () => {
     )}
   </Container>
 </div>
-      {/* Modal for Reservation Form */}
+      {/* Modal for Info */}
       <Modal show={showReservationModal} onHide={handleCloseReservationModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Room Information</Modal.Title>
@@ -478,6 +496,17 @@ const Reservations = () => {
           <div className="mb-3">
             <label className="form-label"><strong>Floor:</strong> {selectedRoom?.floor}</label>
           </div>
+        
+        
+          {selectedRoom && (
+    <img 
+      src={getRoomImage(selectedRoom.RoomType)} 
+      alt={`${selectedRoom.RoomType} image`} 
+      style={{ width: '100%', height: 'auto', borderRadius: '8px' }} 
+    />
+  )}
+        
+        
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseReservationModal}>

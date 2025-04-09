@@ -463,82 +463,82 @@ const Reservations = () => {
                             <tr key={floor.floor_id}>
                               <td>{floor.floor_number}</td>
                               <td>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: '50px' }}>
-                                  {floor.rooms.length > 0 ? (
-                                    [...floor.rooms] // Create a new sorted array
-                                      .sort((a, b) => a.room_number - b.room_number) // Sort in ascending order
-                                      .map((room) => {
-                                        const isReserved = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Reserved');
-                                        const isPending = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Pending');
-                                        return (
-                                          <div
-                                            key={room.room_id}
-                                            style={{
-                                              border: '1px solid #ccc',
-                                              fontWeight: 'bold',
-                                              fontSize: '20px',
-                                              padding: '10px',
-                                              textAlign: 'center',
-                                              position: 'relative',
-                                              cursor: room.RoomType ? 'pointer' : 'not-allowed',
-                                              backgroundColor: isReserved ? 'gray' : room.RoomType ? 'white' : '#f0f0f0',
-                                              borderRadius: '8px',
-                                              boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
-                                              display: 'flex',
-                                              flexDirection: 'column',
-                                              justifyContent: 'center',
-                                              gap: '19px',
-                                              alignItems: 'center',
-                                              width: '125px',
-                                              height: '80px',
-                                              overflow: 'hidden',
-                                            }}
-                                            onClick={() => {
-                                              if (!isReserved && room.RoomType) {
-                                                handleRoomClick(room, floor.floor_number);
-                                              }
-                                            }}
-                                          >
-                                            {isPending && (
-                                              <div style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold' }}>
-                                                Pending
-                                              </div>
-                                            )}
-                                            <div
-                                              style={{
-                                                width: '12px',
-                                                height: '12px',
-                                                borderRadius: '50%',
-                                                backgroundColor: getRoomTypeColor(room.RoomType, room.status, room.room_number),
-                                                position: 'absolute',
-                                                top: '5px',
-                                                right: '5px',
-                                              }}
-                                            />
-                                            {isReserved && (
-                                              <div style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>
-                                                Reserved
-                                              </div>
-                                            )}
-                                            <span
-                                              style={{
-                                                wordWrap: 'break-word',
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'break-word',
-                                                maxWidth: '70px',
-                                                fontSize: '14px',
-                                                textAlign: 'center',
-                                              }}
-                                            >
-                                              <p>{room.room_number}</p>
-                                              <p>{room.view}</p>
-                                            </span>
-                                            {!room.RoomType && (
-                                              <span style={{ fontSize: '10px', color: 'red' }}>
-                                                Not Assigned
-                                              </span>
-                                            )}
-                                          </div>
+                              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: '50px' }}>
+  {floor.rooms.length > 0 ? (
+    [...floor.rooms] // Create a new sorted array
+      .sort((a, b) => a.room_number - b.room_number) // Sort in ascending order
+      .map((room) => {
+        const isReserved = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Reserved');
+        const isPending = reservations.some(reservation => reservation.Room_number === room.room_number && reservation.status === 'Pending');
+        return (
+          <div
+            key={room.room_id}
+            style={{
+              border: '1px solid #ccc',
+              fontWeight: 'bold',
+              fontSize: '20px',
+              padding: '10px',
+              textAlign: 'center',
+              position: 'relative',
+              cursor: room.RoomType ? 'pointer' : 'not-allowed',
+              backgroundColor: isReserved ? 'gray' : room.RoomType ? 'white' : '#f0f0f0',
+              borderRadius: '8px',
+              boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: '19px',
+              alignItems: 'center',
+              width: '125px',
+              height: '80px',
+              overflow: 'hidden',
+            }}
+            onClick={() => {
+              if (!isReserved && room.RoomType) {
+                handleRoomClick(room, floor.floor_number);
+              }
+            }}
+          >
+            {isPending && (
+              <div style={{ color: 'orange', fontSize: '12px', fontWeight: 'bold', position: 'absolute', top: '5px', left: '5px', zIndex: 1 }}>
+                Pending
+              </div>
+            )}
+            <div
+              style={{
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                backgroundColor: getRoomTypeColor(room.RoomType, room.status, room.room_number),
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+              }}
+            />
+            {isReserved && (
+              <div style={{ color: 'white', fontSize: '13px', fontWeight: 'bold', position: 'absolute', bottom: '5px', left: '5px', zIndex: 1, color:'red' }}>
+                Reserved
+              </div>
+            )}
+            <span
+              style={{
+                wordWrap: 'break-word',
+                whiteSpace: 'nowrap',
+                overflow: 'break-word',
+                maxWidth: '70px',
+                fontSize: '14px',
+                textAlign: 'center',
+              }}
+            >
+              <p>{room.room_number}</p>
+              <p>{room.view}</p>
+            </span>
+            {!room.RoomType && (
+              <span style={{ fontSize: '10px', color: 'red' }}>
+                Not Assigned
+              </span>
+            )}
+          </div>
                                         );
                                       })
                                   ) : (
