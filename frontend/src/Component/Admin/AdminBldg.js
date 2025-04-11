@@ -44,16 +44,16 @@ const TableContainers = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 25px; /* Inner spacing */
   position: relative;
-  top: -20px;
+  top: -29px;
   height: 496px; /* Set a fixed height for the table container */
   overflow-y: auto; /* Enable vertical scrolling */
-  left:100px;
+  left:80px;
 `;
 
 const ManagementContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Space below the management container */
+  margin-bottom: 35px; /* Space below the management container */
 `;
 
 const ManagementCheckbox = styled(Form.Check)`
@@ -61,21 +61,22 @@ const ManagementCheckbox = styled(Form.Check)`
 `;
 
 const StyledTable = styled.table`
-  width: 105%; /* Full width */
+  width: 109%; /* Full width */
   border-collapse: collapse;
   font-size: 0.9em;
   font-family: verdana;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   table-layout:fixed;
+  marginLeft: 2px;
 `;
 
 const OuterContainer = styled.div`
   border: 1px solid black;
-  width: 415px;
+  width: 815px;
   height: 413px;
   position: relative;
  margin: 0;  /* Changed from margin: 0 auto */
-  margin-left: 20px;  /* Adjust this 
+  margin-left: -10px;  /* Adjust this 
 `;
 
 
@@ -203,7 +204,17 @@ const AdminBldg = () => {
   const fetchBuildings = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/all-buildings');
-      setBuildings(response.data);
+      const buildingsData = response.data;
+  
+      // Map over buildings to fetch room counts
+      const buildingsWithRoomCount = await Promise.all(
+        buildingsData.map(async (building) => {
+          const roomCount = await fetchRoomCount(building.bldg_id);
+          return { ...building, room_count: roomCount }; // Add room_count to building
+        })
+      );
+  
+      setBuildings(buildingsWithRoomCount);
     } catch (error) {
       console.error('Error fetching buildings:', error);
       Swal.fire('Error', 'Failed to fetch buildings. Please try again.', 'error');
@@ -213,6 +224,26 @@ const AdminBldg = () => {
   useEffect(() => {
     fetchBuildings();
   }, []);
+
+
+  const fetchRoomCount = async (buildingId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/buildings/${buildingId}/floors-rooms`);
+      const floors = response.data;
+  
+      // Count the total number of rooms
+      let roomCount = 0;
+      floors.forEach(floor => {
+        roomCount += floor.rooms.length;
+      });
+  
+      return roomCount;
+    } catch (error) {
+      console.error('Error fetching room count:', error);
+      return 0; // Return 0 in case of error
+    }
+  }
+
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -253,12 +284,10 @@ const AdminBldg = () => {
 const handleBuildingClick = async (building) => {
   if (building && building.bldg_id) {
     try {
-      // Generate a token for the building ID
-      const response = await axios.get(`http://localhost:3001/api/building-token/${building.bldg_id}`);
-      const token = response.data.token; // Get the token from the response
-      navigate(`/building/${token}`); // Navigate using the token
+      // Directly navigate to the building detail page using the building ID
+      navigate(`/building/${building.bldg_id}`);
     } catch (error) {
-      console.error('Error generating token:', error);
+      console.error('Error navigating to building details:', error);
       Swal.fire('Error', 'Could not navigate to building details.', 'error');
     }
   } else {
@@ -279,36 +308,36 @@ const handleBuildingClick = async (building) => {
   };
 
   const columns = useMemo(
-    () => [
-      {
-        Header: 'Building Name',
-        accessor: 'bldg_name',
-        Cell: ({ row }) => (
-          <BuildingLink variant="link" onClick={() => handleBuildingClick(row.original)}>
-            {row.values.bldg_name}
-          </BuildingLink>
-        ),
-      },
-      {
-        Header: 'Number of Floors',
-        accessor: 'number_of_floors',
-      },
-      {
-        Header: 'Number of Rooms', // New column for room count
-        accessor: 'room_count',
-      },
-      {
-        Header: 'Actions',
-        accessor: 'actions',
-        Cell: ({ row }) => (
-          <DeleteButton onClick={() => handleDelete(row.original.bldg_id)}>
-            Delete
-          </DeleteButton>
-        ),
-      },
-    ],
-    []
-  );
+  () => [
+    {
+      Header: 'Building Name',
+      accessor: 'bldg_name',
+      Cell: ({ row }) => (
+        <BuildingLink variant="link" onClick={() => handleBuildingClick(row.original)}>
+          {row.values.bldg_name}
+        </BuildingLink>
+      ),
+    },
+    {
+      Header: 'Number of Floors',
+      accessor: 'number_of_floors',
+    },
+    {
+      Header: 'Number of Rooms', // New column for room count
+      accessor: 'room_count',
+    },
+    {
+      Header: 'Actions',
+      accessor: 'actions',
+      Cell: ({ row }) => (
+        <DeleteButton onClick={() => handleDelete(row.original.bldg_id)}>
+          Delete
+        </DeleteButton>
+      ),
+    },
+  ],
+  []
+);
 
   const {
     getTableProps,

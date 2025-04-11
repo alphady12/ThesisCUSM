@@ -12,10 +12,10 @@ import CustomerDashboard from './Component/Customer/CustomerDashboard';
 import Home from './Component/Customer/Home';
 import FloorRoomForm from './Component/Admin/FloorRoomForm';
 import RegistrationForm from './Component/Admin/Createuser';
-import BuildingInfo from './Component/Admin/Buildinginfo';
+
 import HHome from './Component/Admin/AdminHome';
 import Users from './Component/Admin/UserSelectionPage';
-
+import Buildinginfo from './Component/Admin/Buildinginfo'; // Import the Buildinginfo component
 import ManagerLogin from './Component/managerr/ManagerLogin';
 import ManagerDashboard from './Component/managerr/ManagerDashboard';
 import AgentLogin from './Component/Agent/AgentLogin';
@@ -38,7 +38,7 @@ const App = () => {
               <Route path="/dashboard/*" element={<Dashboard/>} />
               <Route path="/dashboard2/*" element={<CustomerDashboard/>} />
               <Route path="/FloorRoomForm/*" element={<FloorRoomForm/>} />
-              <Route path="/building/:id" element={<BuildingInfo />} /> 
+              <Route path="/building/:id" element={<Buildinginfo />} /> 
 
               <Route path="/home" element={<HHome />} />
               <Route path="/managerlogin" element={<ManagerLogin />} />
