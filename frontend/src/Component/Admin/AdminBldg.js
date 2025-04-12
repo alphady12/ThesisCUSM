@@ -209,8 +209,14 @@ const AdminBldg = () => {
       // Map over buildings to fetch room counts
       const buildingsWithRoomCount = await Promise.all(
         buildingsData.map(async (building) => {
-          const roomCount = await fetchRoomCount(building.bldg_id);
-          return { ...building, room_count: roomCount }; // Add room_count to building
+          const totalRoomCount = await fetchRoomCount(building.bldg_id);
+          const { availableCount, reservedCount } = await fetchAvailableAndReservedRoomCount(building.bldg_id);
+          return { 
+            ...building, 
+            total_room_count: totalRoomCount, // Add total_room_count to building
+            available_count: availableCount, // Add available_count to building
+            reserved_count: reservedCount // Add reserved_count to building
+          };
         })
       );
   
@@ -220,7 +226,6 @@ const AdminBldg = () => {
       Swal.fire('Error', 'Failed to fetch buildings. Please try again.', 'error');
     }
   };
-
   useEffect(() => {
     fetchBuildings();
   }, []);
@@ -243,6 +248,40 @@ const AdminBldg = () => {
       return 0; // Return 0 in case of error
     }
   }
+
+  const fetchAvailableAndReservedRoomCount = async (buildingId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/buildings/${buildingId}/floors-rooms`);
+      const floors = response.data;
+  
+      // Initialize counts
+      let availableCount = 0;
+      let reservedCount = 0;
+  
+      // Count the number of rooms with status 'Available' or 'Reserved'
+      floors.forEach(floor => {
+        floor.rooms.forEach(room => {
+          if (room.status === 'Available') {
+            availableCount++;
+          } else if (room.status === 'Reserved') {
+            reservedCount++;
+          }
+        });
+      });
+  
+      return { availableCount, reservedCount }; // Return both counts
+    } catch (error) {
+      console.error('Error fetching available and reserved room count:', error);
+      return { availableCount: 0, reservedCount: 0 }; // Return 0 in case of error
+    }
+  };
+
+ 
+
+
+
+
+
 
 
   // Handle form input changes
@@ -308,36 +347,44 @@ const handleBuildingClick = async (building) => {
   };
 
   const columns = useMemo(
-  () => [
-    {
-      Header: 'Building Name',
-      accessor: 'bldg_name',
-      Cell: ({ row }) => (
-        <BuildingLink variant="link" onClick={() => handleBuildingClick(row.original)}>
-          {row.values.bldg_name}
-        </BuildingLink>
-      ),
-    },
-    {
-      Header: 'Number of Floors',
-      accessor: 'number_of_floors',
-    },
-    {
-      Header: 'Number of Rooms', // New column for room count
-      accessor: 'room_count',
-    },
-    {
-      Header: 'Actions',
-      accessor: 'actions',
-      Cell: ({ row }) => (
-        <DeleteButton onClick={() => handleDelete(row.original.bldg_id)}>
-          Delete
-        </DeleteButton>
-      ),
-    },
-  ],
-  []
-);
+    () => [
+      {
+        Header: 'Building Name',
+        accessor: 'bldg_name',
+        Cell: ({ row }) => (
+          <BuildingLink variant="link" onClick={() => handleBuildingClick(row.original)}>
+            {row.values.bldg_name}
+          </BuildingLink>
+        ),
+      },
+      {
+        Header: 'Floors',
+        accessor: 'number_of_floors',
+      },
+      {
+        Header: ' Rooms', // Column for total room count
+        accessor: 'total_room_count',
+      },
+      {
+        Header: 'Available ', // Column for available room count
+        accessor: 'available_count',
+      },
+      {
+        Header: 'Reserved ', // Column for reserved room count
+        accessor: 'reserved_count',
+      },
+      {
+        Header: 'Actions',
+        accessor: 'actions',
+        Cell: ({ row }) => (
+          <DeleteButton onClick={() => handleDelete(row.original.bldg_id)}>
+            Delete
+          </DeleteButton>
+        ),
+      },
+    ],
+    []
+  );
 
   const {
     getTableProps,
